@@ -1,0 +1,126 @@
+.mapWrap {
+  margin: 0 20px 14px;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 8px 0 0 #D8D2F5, 0 0 0 2.5px #E8E4FF;
+  height: 180px;
+  position: relative;
+}
+.mapPlaceholder {
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, #D4E8FF 0%, #B8D4F8 50%, #C8DEFF 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle grid lines */
+.mapGrid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+/* Main pin */
+.mapPin {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex; flex-direction: column; align-items: center;
+}
+.pinDot {
+  width: 20px; height: 20px; border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  background: #FF6B2C;
+  box-shadow: 0 4px 0 0 #C94A10;
+  z-index: 2;
+}
+.pinRing {
+  position: absolute; top: -8px; left: -8px;
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 3px solid rgba(255,107,44,0.4);
+  animation: ping 1.5s ease-out infinite;
+}
+.pinShadow {
+  width: 10px; height: 4px; background: rgba(0,0,0,0.2);
+  border-radius: 50%; margin-top: 2px; z-index: 1;
+}
+
+.mapLabel {
+  position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+  background: #fff; border-radius: 12px; padding: 6px 14px;
+  font-size: 11px; font-weight: 800; color: #1A1A2E;
+  box-shadow: 0 4px 0 0 #D8D2F5, 0 0 0 2px #E8E4FF;
+  white-space: nowrap;
+}
+
+.nearbyPin {
+  position: absolute;
+  width: 32px; height: 32px; border-radius: 12px;
+  background: #fff; display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  box-shadow: 0 4px 0 0 #D8D2F5;
+}
+
+.addressList { display: flex; flex-direction: column; gap: 10px; padding: 0 20px 8px; }
+.addressCard {
+  display: flex; align-items: flex-start; gap: 12px;
+  background: #fff; border-radius: 20px; padding: 14px 16px;
+  box-shadow: 0 6px 0 0 #D8D2F5, 0 0 0 2px #E8E4FF;
+  cursor: pointer; transition: transform 0.1s;
+}
+.addressCard:active { transform: translateY(2px); }
+.selectedCard {
+  box-shadow: 0 6px 0 0 #C94A10, 0 0 0 2.5px #FF6B2C;
+  background: #FFF8F5;
+}
+
+.addrIcon {
+  width: 44px; height: 44px; border-radius: 16px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 0 0 rgba(0,0,0,0.06);
+  transition: background 0.2s;
+}
+.addrInfo { flex: 1; }
+.addrLabel { font-size: 13px; font-weight: 900; color: #1A1A2E; }
+.addrMain  { font-size: 11px; font-weight: 700; color: #4A4A6A; margin-top: 3px; line-height: 1.4; }
+.addrSub   { font-size: 10px; font-weight: 600; color: #9090B0; margin-top: 2px; }
+.checkMark {
+  width: 26px; height: 26px; border-radius: 10px;
+  background: #FF6B2C; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 900; flex-shrink: 0;
+  box-shadow: 0 4px 0 0 #C94A10;
+}
+
+.addNew {
+  display: flex; align-items: center; gap: 12px;
+  background: #fff; border-radius: 20px; padding: 14px 16px;
+  box-shadow: 0 6px 0 0 #D8D2F5, 0 0 0 2px #E8E4FF;
+  border: 2.5px dashed #D8D2F5; cursor: pointer;
+  font-size: 14px; font-weight: 800; color: #FF6B2C;
+  font-family: 'Nunito', sans-serif; width: 100%;
+}
+.addIcon {
+  width: 44px; height: 44px; border-radius: 16px;
+  background: #FFE8D8; display: flex; align-items: center; justify-content: center;
+  font-size: 22px; color: #FF6B2C;
+}
+
+.nearbyCard {
+  display: flex; align-items: center; gap: 12px;
+  background: #fff; border-radius: 20px; padding: 12px 14px;
+  box-shadow: 0 6px 0 0 #D8D2F5, 0 0 0 2px #E8E4FF;
+}
+.nearbyIcon {
+  width: 48px; height: 48px; border-radius: 16px;
+  background: linear-gradient(135deg, #FFD4BA, #FF9A5C);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; flex-shrink: 0;
+  box-shadow: 0 4px 0 0 #D8D2F5;
+}
+
+@keyframes ping {
+  0%   { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
