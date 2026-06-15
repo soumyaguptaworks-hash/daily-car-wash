@@ -27,6 +27,7 @@
   display: flex; flex-direction: column; gap: 8px;
 }
 .bcRow { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; color: #4A4A6A; }
+.bcIcon { color: #FF6B2C; display: flex; align-items: center; flex-shrink: 0; }
 .bcLabel { color: #9090B0; }
 .bcVal { color: #1A1A2E; font-weight: 800; flex: 1; }
 
@@ -38,7 +39,7 @@
   background: #fff; border-radius: 24px; padding: 18px;
   box-shadow: 0 8px 0 0 #D8D2F5, 0 0 0 2.5px #E8E4FF;
 }
-.trackCard h4 { font-size: 15px; font-weight: 900; color: #1A1A2E; margin-bottom: 16px; }
+.trackTitle { font-size: 15px; font-weight: 900; color: #1A1A2E; margin-bottom: 16px; display: flex; align-items: center; gap: 7px; }
 
 .trackStep {
   display: flex; gap: 12px; align-items: flex-start; margin-bottom: 14px;

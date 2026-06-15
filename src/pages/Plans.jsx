@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Droplets, Wind, Crown, Check, X, Star, ArrowLeft, MoreHorizontal } from 'lucide-react';
 import StatusBar from '../components/StatusBar';
 import BottomNav from '../components/BottomNav';
 import styles from './Plans.module.css';
@@ -7,11 +8,10 @@ import styles from './Plans.module.css';
 const plans = [
   {
     id: 'basic',
-    icon: '🚿',
+    icon: <Droplets size={26} color="#3B8BFF" />,
     name: 'Basic Plan',
     price: { monthly: '₹499', quarterly: '₹1,299' },
-    iconBg: '#E0F0FF',
-    iconShadow: '#B8D8F5',
+    iconBg: '#E0F0FF', iconShadow: '#B8D8F5',
     features: [
       { ok: true,  text: 'Bucket Wash Service' },
       { ok: true,  text: '4 Days Per Week' },
@@ -23,11 +23,10 @@ const plans = [
   },
   {
     id: 'medium',
-    icon: '🫧',
+    icon: <Wind size={26} color="#C8920A" />,
     name: 'Medium Plan',
     price: { monthly: '₹799', quarterly: '₹2,099' },
-    iconBg: '#FFF8E0',
-    iconShadow: '#EDE0A5',
+    iconBg: '#FFF8E0', iconShadow: '#EDE0A5',
     features: [
       { ok: true,  text: 'Advanced Exterior Clean' },
       { ok: true,  text: 'Dashboard & Glass Clean' },
@@ -39,11 +38,10 @@ const plans = [
   },
   {
     id: 'premium',
-    icon: '🌟',
+    icon: <Crown size={26} color="#fff" />,
     name: 'Premium Plan',
     price: { monthly: '₹1,299', quarterly: '₹3,399' },
-    iconBg: 'rgba(255,255,255,0.25)',
-    iconShadow: 'rgba(0,0,0,0.1)',
+    iconBg: 'rgba(255,255,255,0.25)', iconShadow: 'rgba(0,0,0,0.1)',
     features: [
       { ok: true, text: 'Complete Premium Care' },
       { ok: true, text: 'Exterior + Interior' },
@@ -64,14 +62,13 @@ export default function Plans() {
       <StatusBar />
       <div className="page-scroll">
         <div className="page-header">
-          <button className="back-btn" onClick={() => navigate('/home')}>←</button>
+          <button className="back-btn" onClick={() => navigate('/home')}><ArrowLeft size={18} /></button>
           <h2>Subscription Plans</h2>
-          <button className="menu-btn">⋯</button>
+          <button className="menu-btn"><MoreHorizontal size={18} /></button>
         </div>
 
         <p className={styles.subtitle}>Pick the plan that matches<br/>your car's needs perfectly.</p>
 
-        {/* Billing toggle */}
         <div className={styles.toggle}>
           <button className={billing === 'monthly' ? styles.toggleActive : styles.toggleBtn} onClick={() => setBilling('monthly')}>Monthly</button>
           <button className={billing === 'quarterly' ? styles.toggleActive : styles.toggleBtn} onClick={() => setBilling('quarterly')}>
@@ -79,10 +76,13 @@ export default function Plans() {
           </button>
         </div>
 
-        {/* Plan cards */}
         {plans.map(plan => (
           <div key={plan.id} className={`${styles.planCard} ${plan.featured ? styles.featured : ''}`}>
-            {plan.featured && <div className={styles.popularBadge}>Most Popular ⭐</div>}
+            {plan.featured && (
+              <div className={styles.popularBadge}>
+                <Star size={10} fill="currentColor" /> Most Popular
+              </div>
+            )}
 
             <div className={styles.planIcon} style={{ background: plan.iconBg, boxShadow: `0 5px 0 0 ${plan.iconShadow}` }}>
               {plan.icon}
@@ -96,7 +96,7 @@ export default function Plans() {
               {plan.features.map((f, i) => (
                 <div key={i} className={styles.featureRow}>
                   <div className={`${styles.check} ${f.ok ? styles.checkOk : styles.checkNo} ${plan.featured ? styles.checkFeatured : ''}`}>
-                    {f.ok ? '✓' : '✕'}
+                    {f.ok ? <Check size={12} strokeWidth={3} /> : <X size={12} strokeWidth={3} />}
                   </div>
                   <span style={{ opacity: f.ok ? 1 : 0.45 }}>{f.text}</span>
                 </div>
@@ -112,7 +112,6 @@ export default function Plans() {
             </button>
           </div>
         ))}
-
         <div style={{ height: 8 }} />
       </div>
       <BottomNav />
