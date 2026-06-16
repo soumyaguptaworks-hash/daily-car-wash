@@ -1,0 +1,19 @@
+{
+  "name": "Clay — Daily Planner",
+  "short_name": "Clay",
+  "description": "A soft, claymorphic daily planner. Plan and manage your day, beautifully.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#DFF1FF",
+  "theme_color": "#4DA3FF",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

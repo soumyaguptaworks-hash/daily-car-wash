@@ -1,120 +1,69 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Droplets, Wind, Crown, Check, X, Star, ArrowLeft, MoreHorizontal } from 'lucide-react';
-import StatusBar from '../components/StatusBar';
-import BottomNav from '../components/BottomNav';
-import styles from './Plans.module.css';
-
-const plans = [
-  {
-    id: 'basic',
-    icon: <Droplets size={26} color="#3B8BFF" />,
-    name: 'Basic Plan',
-    price: { monthly: '₹499', quarterly: '₹1,299' },
-    iconBg: '#E0F0FF', iconShadow: '#B8D8F5',
-    features: [
-      { ok: true,  text: 'Bucket Wash Service' },
-      { ok: true,  text: '4 Days Per Week' },
-      { ok: true,  text: 'Exterior Cleaning' },
-      { ok: false, text: 'Interior Cleaning' },
-      { ok: false, text: 'Foam Wash' },
-    ],
-    featured: false,
-  },
-  {
-    id: 'medium',
-    icon: <Wind size={26} color="#C8920A" />,
-    name: 'Medium Plan',
-    price: { monthly: '₹799', quarterly: '₹2,099' },
-    iconBg: '#FFF8E0', iconShadow: '#EDE0A5',
-    features: [
-      { ok: true,  text: 'Advanced Exterior Clean' },
-      { ok: true,  text: 'Dashboard & Glass Clean' },
-      { ok: true,  text: 'Tyre Cleaning' },
-      { ok: true,  text: '5 Days Per Week' },
-      { ok: false, text: 'Interior Vacuum' },
-    ],
-    featured: false,
-  },
-  {
-    id: 'premium',
-    icon: <Crown size={26} color="#fff" />,
-    name: 'Premium Plan',
-    price: { monthly: '₹1,299', quarterly: '₹3,399' },
-    iconBg: 'rgba(255,255,255,0.25)', iconShadow: 'rgba(0,0,0,0.1)',
-    features: [
-      { ok: true, text: 'Complete Premium Care' },
-      { ok: true, text: 'Exterior + Interior' },
-      { ok: true, text: 'Foam Wash Included' },
-      { ok: true, text: 'Vacuum Cleaning' },
-      { ok: true, text: 'Priority Assignment' },
-    ],
-    featured: true,
-  },
-];
+import { Check, Info } from 'lucide-react';
+import { useStore } from '../store';
+import { PLANS, inr } from '../data';
+import { ClayButton } from '../components/ui';
+import { Page, TopBar, Section } from '../components/layout';
+import s from './app.module.css';
 
 export default function Plans() {
-  const [billing, setBilling] = useState('monthly');
-  const navigate = useNavigate();
+  const nav = useNavigate();
+  const { subscription, setSubscription } = useStore();
+
+  const choose = (id) => { setSubscription({ planId: id }); nav('/schedule'); };
 
   return (
-    <div className="phone-shell">
-      <StatusBar />
-      <div className="page-scroll">
-        <div className="page-header">
-          <button className="back-btn" onClick={() => navigate('/home')}><ArrowLeft size={18} /></button>
-          <h2>Subscription Plans</h2>
-          <button className="menu-btn"><MoreHorizontal size={18} /></button>
-        </div>
+    <Page>
+      <TopBar back={false} title="Subscription Plans" subtitle="Pick a plan that fits your routine" />
 
-        <p className={styles.subtitle}>Pick the plan that matches<br/>your car's needs perfectly.</p>
-
-        <div className={styles.toggle}>
-          <button className={billing === 'monthly' ? styles.toggleActive : styles.toggleBtn} onClick={() => setBilling('monthly')}>Monthly</button>
-          <button className={billing === 'quarterly' ? styles.toggleActive : styles.toggleBtn} onClick={() => setBilling('quarterly')}>
-            Quarterly <span className={styles.saveBadge}>Save 10%</span>
-          </button>
-        </div>
-
-        {plans.map(plan => (
-          <div key={plan.id} className={`${styles.planCard} ${plan.featured ? styles.featured : ''}`}>
-            {plan.featured && (
-              <div className={styles.popularBadge}>
-                <Star size={10} fill="currentColor" /> Most Popular
-              </div>
-            )}
-
-            <div className={styles.planIcon} style={{ background: plan.iconBg, boxShadow: `0 5px 0 0 ${plan.iconShadow}` }}>
-              {plan.icon}
-            </div>
-            <div className={styles.planName}>{plan.name}</div>
-            <div className={styles.planPrice}>
-              {plan.price[billing]} <span>/ {billing === 'monthly' ? 'month' : 'quarter'}</span>
-            </div>
-
-            <div className={styles.featureList}>
-              {plan.features.map((f, i) => (
-                <div key={i} className={styles.featureRow}>
-                  <div className={`${styles.check} ${f.ok ? styles.checkOk : styles.checkNo} ${plan.featured ? styles.checkFeatured : ''}`}>
-                    {f.ok ? <Check size={12} strokeWidth={3} /> : <X size={12} strokeWidth={3} />}
-                  </div>
-                  <span style={{ opacity: f.ok ? 1 : 0.45 }}>{f.text}</span>
+      <div className="col" style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+        {PLANS.map((p) => {
+          const isActive = subscription.planId === p.id;
+          return (
+            <div key={p.id} className={`${s.planCard} ${isActive ? s.planCardActive : ''}`}>
+              {p.popular && <span className={s.planTopRibbon}>★ POPULAR</span>}
+              <div className={s.planHead}>
+                <span className={s.planIcon} style={{ background: `${p.color}1F`, color: p.color }}><p.Icon size={26} /></span>
+                <div>
+                  <div className={s.planName}>{p.name}</div>
+                  <div className={s.planTag}>{p.tagline}</div>
                 </div>
-              ))}
-            </div>
+              </div>
 
-            <button
-              className={`clay-btn ${plan.featured ? 'white-ghost' : 'outline'} sm`}
-              style={{ marginTop: 16, width: '100%', fontSize: 14, padding: '12px 20px', borderRadius: 16 }}
-              onClick={() => navigate('/bookings')}
-            >
-              Choose {plan.name.split(' ')[0]}
-            </button>
-          </div>
-        ))}
-        <div style={{ height: 8 }} />
+              <div className={s.planPriceRow}>
+                <span className={s.planPrice}>{inr(p.price)}</span>
+                <span className={s.planPer}>/ month</span>
+              </div>
+              <div className={s.planTag} style={{ marginBottom: 8 }}>{p.washes} washes · {p.perWeek} days a week</div>
+
+              <div style={{ margin: '10px 0 18px' }}>
+                {p.features.map((f) => (
+                  <div key={f} className={s.feat}>
+                    <span className={s.featCheck} style={{ background: p.color }}><Check size={14} strokeWidth={3.5} /></span>
+                    {f}
+                  </div>
+                ))}
+              </div>
+
+              {isActive ? (
+                <ClayButton full variant="soft" onClick={() => nav('/schedule')}>Manage schedule</ClayButton>
+              ) : (
+                <ClayButton full onClick={() => choose(p.id)}>Choose {p.name}</ClayButton>
+              )}
+            </div>
+          );
+        })}
       </div>
-      <BottomNav />
-    </div>
+
+      <Section>
+        <div className={s.tile} style={{ background: '#EAF4FF', boxShadow: 'none' }}>
+          <span className={s.tileIcon} style={{ background: '#fff', color: '#4DA3FF' }}><Info size={22} /></span>
+          <div className={s.tileBody}>
+            <div className={s.tileTitle} style={{ fontSize: 14 }}>Pause anytime</div>
+            <div className={s.tileSub}>Going on a trip? Activate holiday mode and your washes wait for you.</div>
+          </div>
+        </div>
+      </Section>
+    </Page>
   );
 }

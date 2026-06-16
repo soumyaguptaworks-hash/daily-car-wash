@@ -1,0 +1,193 @@
+/* ════ shared in-app styles (Home, Plans, Book, Bookings, etc.) ════ */
+
+/* ── home header ── */
+.greet { display: flex; align-items: center; gap: 13px; margin-bottom: 18px; }
+.hi { font-size: 13px; font-weight: 600; color: var(--c-ink-soft); }
+.name { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 20px; color: var(--c-ink); line-height: 1.1; }
+.locChip {
+  display: inline-flex; align-items: center; gap: 5px; margin-top: 4px;
+  font-size: 12px; font-weight: 700; color: var(--c-blue-deep);
+}
+.headBtn {
+  width: 46px; height: 46px; border-radius: 16px; flex-shrink: 0; position: relative;
+  display: flex; align-items: center; justify-content: center; border: none; cursor: pointer;
+  background: #fff; color: var(--c-blue-deep);
+  box-shadow: 6px 6px 14px rgba(120,165,210,.28), -5px -5px 12px rgba(255,255,255,.9);
+  transition: transform .12s ease;
+}
+.headBtn:active { transform: translateY(2px); }
+.redDot { position: absolute; top: 11px; right: 12px; width: 8px; height: 8px; border-radius: 50%; background: #FF6B82; box-shadow: 0 0 0 2px #fff; }
+
+/* ── active subscription hero ── */
+.subCard {
+  border-radius: 30px; padding: 20px; color: #fff; position: relative; overflow: hidden;
+  background: linear-gradient(140deg, #66B2FF 0%, #3D8FF0 55%, #2E7DE0 100%);
+  box-shadow: 0 16px 34px rgba(46,125,224,.45), inset 3px 3px 7px rgba(255,255,255,.3), inset -5px -7px 14px rgba(20,80,170,.4);
+}
+.subCard::after { content: ''; position: absolute; width: 150px; height: 150px; border-radius: 50%; background: rgba(255,255,255,.12); top: -50px; right: -40px; }
+.subTop { display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 1; }
+.subPlanTag { display: inline-flex; align-items: center; gap: 7px; font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 18px; }
+.subPill { font-size: 11px; font-weight: 700; background: rgba(255,255,255,.22); padding: 5px 11px; border-radius: 999px; backdrop-filter: blur(4px); }
+.subMeta { display: flex; gap: 22px; margin-top: 18px; position: relative; z-index: 1; }
+.subMetaLabel { font-size: 11px; font-weight: 600; opacity: .85; }
+.subMetaVal { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 17px; margin-top: 2px; }
+.subBar { height: 9px; border-radius: 999px; background: rgba(255,255,255,.25); margin-top: 16px; overflow: hidden; position: relative; z-index: 1; }
+.subBarFill { height: 100%; border-radius: 999px; background: #fff; }
+
+/* ── quick actions ── */
+.qaGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.qaItem {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  border: none; cursor: pointer; background: none; font-family: 'Quicksand', sans-serif;
+}
+.qaIcon {
+  width: 56px; height: 56px; border-radius: 20px;
+  display: flex; align-items: center; justify-content: center;
+  background: #fff;
+  box-shadow: 6px 6px 14px rgba(120,165,210,.26), -5px -5px 12px rgba(255,255,255,.92), inset 2px 2px 4px rgba(255,255,255,.9);
+  transition: transform .12s ease;
+}
+.qaItem:active .qaIcon { transform: translateY(3px); }
+.qaLabel { font-size: 11px; font-weight: 700; color: var(--c-ink); }
+
+/* ── offers ── */
+.offerCard {
+  min-width: 178px; border-radius: 22px; padding: 16px; color: #fff; flex-shrink: 0;
+  position: relative; overflow: hidden;
+  box-shadow: 0 12px 26px rgba(120,165,210,.3), inset 2px 2px 6px rgba(255,255,255,.35);
+}
+.offerTitle { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 22px; }
+.offerSub { font-size: 13px; font-weight: 600; opacity: .92; margin-top: 2px; }
+.offerCode { display: inline-block; margin-top: 12px; font-size: 11px; font-weight: 700; background: rgba(255,255,255,.25); padding: 5px 10px; border-radius: 8px; letter-spacing: .5px; }
+
+/* ── service mini card ── */
+.svcCard {
+  min-width: 142px; flex-shrink: 0; background: #fff; border-radius: 22px; padding: 16px; cursor: pointer;
+  box-shadow: 7px 7px 16px rgba(120,165,210,.26), -5px -5px 12px rgba(255,255,255,.92);
+  transition: transform .12s ease;
+}
+.svcCard:active { transform: translateY(3px); }
+.svcIcon { width: 48px; height: 48px; border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+.svcName { font-family: 'Fredoka', sans-serif; font-weight: 500; font-size: 15px; color: var(--c-ink); }
+.svcMeta { font-size: 12px; font-weight: 600; color: var(--c-ink-soft); margin-top: 2px; }
+.svcPrice { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 16px; color: var(--c-blue-deep); margin-top: 10px; }
+
+/* ── generic list tile (booking, vehicle, address) ── */
+.tile {
+  display: flex; align-items: center; gap: 14px; background: #fff;
+  border-radius: 22px; padding: 15px;
+  box-shadow: 7px 7px 16px rgba(120,165,210,.22), -5px -5px 12px rgba(255,255,255,.9);
+}
+.tileIcon { width: 50px; height: 50px; border-radius: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.tileBody { flex: 1; min-width: 0; }
+.tileTitle { font-family: 'Fredoka', sans-serif; font-weight: 500; font-size: 15.5px; color: var(--c-ink); }
+.tileSub { font-size: 12.5px; font-weight: 600; color: var(--c-ink-soft); margin-top: 3px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.tileRight { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
+.tilePrice { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 16px; color: var(--c-blue-deep); }
+
+/* ── plan card ── */
+.planCard {
+  background: #fff; border-radius: 28px; padding: 20px; position: relative;
+  box-shadow: 8px 8px 20px rgba(120,165,210,.26), -6px -6px 16px rgba(255,255,255,.92);
+  border: 2.5px solid transparent; transition: border-color .15s ease, transform .15s ease;
+}
+.planCardActive { border-color: var(--c-blue); transform: scale(1.005); }
+.planTopRibbon {
+  position: absolute; top: 16px; right: 16px; font-size: 10.5px; font-weight: 700; color: #fff;
+  background: linear-gradient(150deg,#FFC857,#FF9F1C); padding: 5px 11px; border-radius: 999px;
+  box-shadow: 0 6px 14px rgba(255,159,28,.4);
+}
+.planHead { display: flex; align-items: center; gap: 13px; margin-bottom: 16px; }
+.planIcon { width: 54px; height: 54px; border-radius: 18px; display: flex; align-items: center; justify-content: center; }
+.planName { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 20px; color: var(--c-ink); }
+.planTag { font-size: 12.5px; font-weight: 600; color: var(--c-ink-soft); margin-top: 1px; }
+.planPriceRow { display: flex; align-items: baseline; gap: 4px; margin-bottom: 4px; }
+.planPrice { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 30px; color: var(--c-ink); }
+.planPer { font-size: 13px; font-weight: 600; color: var(--c-ink-soft); }
+.feat { display: flex; align-items: center; gap: 10px; font-size: 13.5px; font-weight: 600; color: var(--c-ink); padding: 7px 0; }
+.featCheck { width: 22px; height: 22px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; flex-shrink: 0; }
+
+/* ── day / slot chips ── */
+.chipWrap { display: flex; gap: 9px; flex-wrap: wrap; }
+.dayChip {
+  width: 46px; height: 46px; border-radius: 15px; border: none; cursor: pointer;
+  font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 13px; color: var(--c-ink-soft);
+  background: var(--field); box-shadow: inset 3px 3px 7px rgba(140,175,215,.35), inset -3px -3px 7px rgba(255,255,255,.9);
+  transition: all .14s ease;
+}
+.dayChipOn { color: #fff; background: linear-gradient(150deg,#66B2FF,#2E7DE0); box-shadow: 0 8px 16px rgba(46,125,224,.4); }
+.slotCard {
+  flex: 1; border: none; cursor: pointer; text-align: left; padding: 14px 16px; border-radius: 18px;
+  background: var(--field); box-shadow: inset 3px 3px 7px rgba(140,175,215,.35), inset -3px -3px 7px rgba(255,255,255,.9);
+  transition: all .14s ease;
+}
+.slotCardOn { background: #fff; box-shadow: 0 0 0 2.5px var(--c-blue), 6px 6px 14px rgba(120,165,210,.25); }
+.slotLabel { font-family: 'Fredoka', sans-serif; font-weight: 500; font-size: 15px; color: var(--c-ink); }
+.slotTime { font-size: 12px; font-weight: 600; color: var(--c-ink-soft); margin-top: 2px; }
+.timeChip {
+  padding: 11px 4px; border-radius: 14px; border: none; cursor: pointer; text-align: center;
+  font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 13.5px; color: var(--c-ink-soft);
+  background: var(--field); box-shadow: inset 3px 3px 7px rgba(140,175,215,.35), inset -3px -3px 7px rgba(255,255,255,.9);
+  transition: all .14s ease;
+}
+.timeChipOn { color: #fff; background: linear-gradient(150deg,#66B2FF,#2E7DE0); box-shadow: 0 8px 16px rgba(46,125,224,.4); }
+
+/* ── summary ── */
+.summary { background: var(--field); border-radius: 20px; padding: 16px 18px; box-shadow: inset 3px 3px 8px rgba(140,175,215,.3), inset -3px -3px 8px rgba(255,255,255,.9); }
+.sumRow { display: flex; align-items: center; justify-content: space-between; padding: 5px 0; font-size: 14px; font-weight: 600; color: var(--c-ink-soft); }
+.sumRow b { font-family: 'Fredoka', sans-serif; font-weight: 600; color: var(--c-ink); }
+.sumDivide { height: 1.5px; background: #CFE2F5; margin: 8px 0; border-radius: 2px; }
+.sumTotal { font-size: 16px; color: var(--c-ink); }
+.sumTotal b { font-size: 22px; color: var(--c-blue-deep); }
+
+/* ── tracking ── */
+.track { position: relative; padding-left: 6px; }
+.step { display: flex; gap: 16px; padding-bottom: 26px; position: relative; }
+.step:last-child { padding-bottom: 0; }
+.stepLine { position: absolute; left: 22px; top: 44px; bottom: -4px; width: 3px; border-radius: 2px; background: #DCE9F6; }
+.stepLineDone { background: var(--c-green); }
+.stepDot {
+  width: 46px; height: 46px; border-radius: 15px; flex-shrink: 0; z-index: 1;
+  display: flex; align-items: center; justify-content: center; color: var(--c-mute); background: #fff;
+  box-shadow: 5px 5px 12px rgba(120,165,210,.2), -4px -4px 10px rgba(255,255,255,.9);
+}
+.stepDotDone { color: #fff; background: linear-gradient(150deg,#3FDC9E,#16B47B); box-shadow: 0 8px 16px rgba(22,180,123,.4); }
+.stepDotNow { color: #fff; background: linear-gradient(150deg,#66B2FF,#2E7DE0); box-shadow: 0 8px 18px rgba(46,125,224,.45); animation: pulse 1.6s ease-in-out infinite; }
+.stepTitle { font-family: 'Fredoka', sans-serif; font-weight: 500; font-size: 15.5px; color: var(--c-ink); padding-top: 11px; }
+.stepTime { font-size: 12px; font-weight: 600; color: var(--c-ink-soft); margin-top: 2px; }
+.stepTitleMuted { color: var(--c-mute); }
+
+/* ── photos ── */
+.photoGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.photo {
+  aspect-ratio: 4/3; border-radius: 18px; position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.5), 6px 6px 14px rgba(120,165,210,.22);
+}
+.photoTag { position: absolute; top: 10px; left: 10px; font-size: 10.5px; font-weight: 700; color: #fff; background: rgba(0,0,0,.35); padding: 4px 10px; border-radius: 999px; backdrop-filter: blur(4px); }
+
+/* ── partner ── */
+.partner { display: flex; align-items: center; gap: 14px; }
+.partnerAv { width: 56px; height: 56px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 20px; color: #fff; background: linear-gradient(150deg,#A78BFA,#7C5CE0); box-shadow: 0 8px 16px rgba(124,92,224,.4); flex-shrink: 0; }
+.partnerName { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 17px; color: var(--c-ink); }
+.partnerMeta { font-size: 12.5px; font-weight: 600; color: var(--c-ink-soft); margin-top: 2px; }
+.circleBtn { width: 46px; height: 46px; border-radius: 15px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--c-blue-deep); background: var(--field); box-shadow: inset 3px 3px 7px rgba(140,175,215,.35), inset -3px -3px 7px rgba(255,255,255,.9); transition: transform .12s ease; }
+.circleBtn:active { transform: translateY(2px); }
+
+/* ── stat tiles ── */
+.statTile { background: #fff; border-radius: 22px; padding: 18px; box-shadow: 7px 7px 16px rgba(120,165,210,.22), -5px -5px 12px rgba(255,255,255,.9); }
+.statVal { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 26px; color: var(--c-ink); }
+.statLabel { font-size: 12.5px; font-weight: 600; color: var(--c-ink-soft); margin-top: 3px; }
+
+/* ── profile rows ── */
+.menuRow {
+  display: flex; align-items: center; gap: 14px; width: 100%; cursor: pointer; border: none; text-align: left;
+  background: #fff; border-radius: 20px; padding: 15px 16px; font-family: 'Quicksand', sans-serif;
+  box-shadow: 6px 6px 14px rgba(120,165,210,.2), -4px -4px 10px rgba(255,255,255,.9);
+  transition: transform .12s ease;
+}
+.menuRow:active { transform: translateY(2px); }
+.menuIcon { width: 42px; height: 42px; border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.menuLabel { flex: 1; font-family: 'Fredoka', sans-serif; font-weight: 500; font-size: 15px; color: var(--c-ink); }
+
+@keyframes pulse { 0%,100% { box-shadow: 0 8px 18px rgba(46,125,224,.45); } 50% { box-shadow: 0 8px 18px rgba(46,125,224,.45), 0 0 0 8px rgba(77,163,255,.18); } }

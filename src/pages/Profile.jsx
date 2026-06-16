@@ -1,97 +1,108 @@
 import { useNavigate } from 'react-router-dom';
 import {
-  Mail, User, Smartphone, Home, Car,
-  CreditCard, Bell, Gift, Star, LogOut,
-  Pencil, ArrowLeft, MoreHorizontal, ChevronRight,
+  Car, MapPin, Wallet, Bell, Star, ShieldCheck, HelpCircle,
+  LogOut, ChevronRight, Crown,
 } from 'lucide-react';
-import StatusBar from '../components/StatusBar';
-import BottomNav from '../components/BottomNav';
-import styles from './Profile.module.css';
-
-const fields = [
-  { icon: <Mail size={18} color="#3B9EFF" />,       label: 'Email',        value: 'alex.johnson@gmail.com' },
-  { icon: <User size={18} color="#7B5CFF" />,       label: 'Username',     value: 'Alex Johnson' },
-  { icon: <Smartphone size={18} color="#00B469" />, label: 'Phone Number', value: '+91 98765 43210' },
-  { icon: <Home size={18} color="#3B9EFF" />,       label: 'Home Address', value: '12A, Koramangala, Bengaluru' },
-];
-
-const menuItems = [
-  { icon: <Car       size={18} color="#3B9EFF" />, label: 'My Vehicles',           bg: '#D0E8FF' },
-  { icon: <CreditCard size={18} color="#00B469" />, label: 'Payment Methods',      bg: '#E8FFE8' },
-  { icon: <Bell      size={18} color="#3B9EFF" />, label: 'Notification Settings', bg: '#EBF5FF' },
-  { icon: <Gift      size={18} color="#7B5CFF" />, label: 'Referral & Rewards',    bg: '#F0E8FF' },
-  { icon: <Star      size={18} color="#C8920A" fill="#C8920A" />, label: 'Rate the App', bg: '#FFF8E0' },
-];
+import { useStore } from '../store';
+import { ClayButton } from '../components/ui';
+import { Stars } from '../components/bits';
+import { Page, TopBar, Section, L } from '../components/layout';
+import s from './app.module.css';
 
 export default function Profile() {
-  const navigate = useNavigate();
+  const nav = useNavigate();
+  const { user, activePlan, subscription, bookings, logout } = useStore();
+
+  const completed = bookings.filter((b) => b.status === 'completed').length;
+
+  const MENU = [
+    { Icon: Car,        label: 'My vehicles',       to: '/vehicles',      color: '#4DA3FF' },
+    { Icon: MapPin,     label: 'Saved addresses',   to: '/addresses',     color: '#34D399' },
+    { Icon: Wallet,     label: 'Wallet & rewards',  to: '/wallet',        color: '#FFC857' },
+    { Icon: Bell,       label: 'Notifications',     to: '/notifications', color: '#FF8FB1' },
+    { Icon: Star,       label: 'Ratings & reviews', to: '/home',          color: '#A78BFA' },
+    { Icon: ShieldCheck,label: 'Privacy & security',to: '/home',          color: '#34D399' },
+    { Icon: HelpCircle, label: 'Help & support',    to: '/home',          color: '#4DA3FF' },
+  ];
+
   return (
-    <div className="phone-shell">
-      <StatusBar white />
-      <div className="page-scroll">
-        <div className={styles.hero}>
-          <div className={styles.heroHeader}>
-            <button className={styles.backWhite} onClick={() => navigate('/home')}>
-              <ArrowLeft size={18} color="#fff" />
-            </button>
-            <span className={styles.heroTitle}>Edit Profile</span>
-            <button className={styles.backWhite}>
-              <MoreHorizontal size={18} color="#fff" />
-            </button>
-          </div>
+    <Page>
+      <TopBar back={false} title="Profile" />
 
-          <div className={styles.avatarWrap}>
-            <div className={styles.bigAvatar}>A</div>
-            <div className={styles.editBadge}><Pencil size={13} color="#3B9EFF" /></div>
-          </div>
-          <div className={styles.profileName}>Alex Johnson</div>
-          <div className={styles.profileSub}>Premium Member · Since Jan 2025</div>
+      {/* avatar + name */}
+      <div style={{ textAlign: 'center', marginBottom: 26 }}>
+        <div style={{
+          width: 88, height: 88, borderRadius: 30, margin: '0 auto 14px',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontFamily: 'Fredoka, sans-serif', fontWeight: 600, fontSize: 32, color: '#fff',
+          background: 'linear-gradient(150deg,#66B2FF,#2E7DE0)',
+          boxShadow: '0 14px 28px rgba(46,125,224,.4), inset 3px 3px 7px rgba(255,255,255,.4)',
+        }}>
+          {user.initials}
         </div>
-
-        <div className={styles.body}>
-          <div className={styles.statsRow}>
-            {[['42','Washes'],['4.9','Rating'],['₹850','Wallet']].map(([num, lbl]) => (
-              <div key={lbl} className={styles.statChip}>
-                <div className={styles.statNum}>{num}</div>
-                <div className={styles.statLbl}>{lbl}</div>
-              </div>
-            ))}
-          </div>
-
-          {fields.map(f => (
-            <div key={f.label} className={styles.fieldGroup}>
-              <div className={styles.fieldLabel}>{f.label}</div>
-              <div className={styles.fieldInput}>
-                <span className={styles.fiIcon}>{f.icon}</span>
-                <span className={styles.fiText}>{f.value}</span>
-                <Pencil size={14} color="#3B9EFF" style={{ cursor: 'pointer', flexShrink: 0 }} />
-              </div>
-            </div>
-          ))}
-
-          <div style={{ marginBottom: 20 }}>
-            <button className="clay-btn">Save My Profile</button>
-          </div>
-
-          <div className={styles.menuList}>
-            {menuItems.map(m => (
-              <div key={m.label} className={styles.menuRow}>
-                <div className={styles.mrIcon} style={{ background: m.bg }}>{m.icon}</div>
-                <span className={styles.mrText}>{m.label}</span>
-                <ChevronRight size={18} color="#9090B0" />
-              </div>
-            ))}
-            <div className={`${styles.menuRow} ${styles.danger}`} onClick={() => navigate('/')}>
-              <div className={styles.mrIcon} style={{ background: '#FFE8EA' }}>
-                <LogOut size={18} color="#FF3B50" />
-              </div>
-              <span className={styles.mrText}>Log Out</span>
-              <ChevronRight size={18} color="#FF3B50" />
-            </div>
-          </div>
-        </div>
+        <div style={{ fontFamily: 'Fredoka, sans-serif', fontWeight: 600, fontSize: 22, color: '#233A56' }}>{user.name}</div>
+        <div style={{ fontSize: 13, fontWeight: 600, color: '#6E89A8', marginTop: 4 }}>{user.phone}</div>
+        <Stars value={4.9} size={14} showValue />
       </div>
-      <BottomNav />
-    </div>
+
+      {/* stats */}
+      <div className={L.grid2} style={{ marginBottom: 26 }}>
+        {[
+          { val: completed,     label: 'Washes done' },
+          { val: activePlan ? (activePlan.washes - subscription.washesUsed) : 0, label: 'Washes left' },
+        ].map((st) => (
+          <div key={st.label} className={s.statTile}>
+            <div className={s.statVal}>{st.val}</div>
+            <div className={s.statLabel}>{st.label}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* active plan badge */}
+      {activePlan && (
+        <Section>
+          <div className={s.tile} style={{ cursor: 'pointer' }} onClick={() => nav('/plans')}>
+            <span className={s.tileIcon} style={{ background: `${activePlan.color}22`, color: activePlan.color }}>
+              <Crown size={22} />
+            </span>
+            <div className={s.tileBody}>
+              <div className={s.tileTitle}>{activePlan.name} Plan · Active</div>
+              <div className={s.tileSub}>{subscription.startedDays?.join(', ')} · {subscription.slot === 'morning' ? '7–10 AM' : '4–7 PM'}</div>
+            </div>
+            <ChevronRight size={18} color="#9DB4CE" />
+          </div>
+        </Section>
+      )}
+
+      {/* menu */}
+      <Section title="Account">
+        <div className={L.col}>
+          {MENU.map((m) => (
+            <button key={m.label} className={s.menuRow} onClick={() => nav(m.to)}>
+              <span className={s.menuIcon} style={{ background: `${m.color}1F`, color: m.color }}>
+                <m.Icon size={20} />
+              </span>
+              <span className={s.menuLabel}>{m.label}</span>
+              <ChevronRight size={18} color="#9DB4CE" />
+            </button>
+          ))}
+        </div>
+      </Section>
+
+      <Section>
+        <ClayButton
+          full
+          variant="soft"
+          onClick={() => { logout(); nav('/', { replace: true }); }}
+          style={{ color: '#FF6B82' }}
+        >
+          <LogOut size={17} /> Sign out
+        </ClayButton>
+      </Section>
+
+      <div style={{ textAlign: 'center', fontSize: 12, fontWeight: 600, color: '#9DB4CE', padding: '10px 0 4px' }}>
+        Daily Car Wash v1.0 · Made with ♥
+      </div>
+    </Page>
   );
 }

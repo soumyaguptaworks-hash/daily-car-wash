@@ -1,0 +1,52 @@
+.page {
+  padding: 22px 18px 130px;
+  animation: fadeUp .45s ease both;
+  min-height: 100dvh;
+}
+.pageWide { padding-bottom: 40px; }
+
+/* top bar */
+.topbar {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 20px;
+}
+.back {
+  width: 44px; height: 44px; border-radius: 16px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  border: none; cursor: pointer; color: var(--c-blue-deep);
+  background: #fff;
+  box-shadow:
+    6px 6px 14px rgba(120,165,210,.28),
+    -5px -5px 12px rgba(255,255,255,.9),
+    inset 2px 2px 4px rgba(255,255,255,.9);
+  transition: transform .12s ease;
+}
+.back:active { transform: translateY(2px) scale(.97); }
+.titleWrap { flex: 1; min-width: 0; }
+.title { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 22px; color: var(--c-ink); line-height: 1.15; }
+.sub { font-size: 13px; font-weight: 600; color: var(--c-ink-soft); margin-top: 2px; }
+
+/* sections */
+.section { margin-top: 26px; }
+.sectionHead { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.sectionTitle { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 17px; color: var(--c-ink); }
+.link { font-size: 13px; font-weight: 700; color: var(--c-blue-deep); background: none; border: none; cursor: pointer; }
+
+/* helpers */
+.row { display: flex; align-items: center; gap: 12px; }
+.col { display: flex; flex-direction: column; gap: 12px; }
+.spread { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.wrap { flex-wrap: wrap; }
+.muted { font-size: 13px; font-weight: 600; color: var(--c-ink-soft); }
+.tiny { font-size: 12px; font-weight: 600; color: var(--c-mute); }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.hscroll {
+  display: flex; gap: 14px; overflow-x: auto;
+  margin: 0 -18px; padding: 4px 18px 6px;
+}
+
+.fieldLabel {
+  font-family: 'Fredoka', sans-serif; font-weight: 500; font-size: 14px;
+  color: var(--c-ink); margin-bottom: 9px; display: block;
+}
