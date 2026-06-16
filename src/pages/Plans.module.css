@@ -13,7 +13,7 @@
   border-radius: 16px;
   padding: 4px;
   margin: 14px 20px 0;
-  box-shadow: 0 5px 0 0 #D8D2F5, 0 0 0 2px #E8E4FF;
+  box-shadow: 0 5px 0 0 #B8D8F5, 0 0 0 2px #D0E8FF;
 }
 .toggleBtn {
   flex: 1; text-align: center; padding: 9px;
@@ -25,9 +25,9 @@
 .toggleActive {
   flex: 1; text-align: center; padding: 9px;
   font-size: 13px; font-weight: 800;
-  background: #FF6B2C; color: #fff;
+  background: #3B9EFF; color: #fff;
   border-radius: 12px; cursor: pointer; border: none;
-  box-shadow: 0 4px 0 0 #C94A10; font-family: 'Nunito', sans-serif;
+  box-shadow: 0 4px 0 0 #1565BD; font-family: 'Nunito', sans-serif;
   display: flex; align-items: center; justify-content: center; gap: 6px;
 }
 .saveBadge {
@@ -35,21 +35,21 @@
   border-radius: 8px; padding: 2px 7px;
   font-size: 10px; font-weight: 800;
 }
-.toggleBtn .saveBadge { background: #FFE8D8; color: #FF6B2C; }
+.toggleBtn .saveBadge { background: #D0E8FF; color: #3B9EFF; }
 
 .planCard {
   margin: 16px 20px 0;
   background: #fff;
   border-radius: 26px;
   padding: 20px;
-  box-shadow: 0 8px 0 0 #D8D2F5, 0 0 0 2.5px #E8E4FF;
+  box-shadow: 0 8px 0 0 #B8D8F5, 0 0 0 2.5px #D0E8FF;
   position: relative;
   overflow: hidden;
   color: #1A1A2E;
 }
 .featured {
-  background: linear-gradient(145deg, #FF6B2C, #FF9A5C);
-  box-shadow: 0 8px 0 0 #C94A10, 0 0 0 3px rgba(255,107,44,0.25);
+  background: linear-gradient(145deg, #3B9EFF, #65B4FF);
+  box-shadow: 0 8px 0 0 #1565BD, 0 0 0 3px rgba(59,158,255,0.25);
   color: #fff;
 }
 
@@ -79,5 +79,5 @@
   font-size: 11px; font-weight: 900;
 }
 .checkOk { background: #DFFFF0; color: #00B469; box-shadow: 0 3px 0 0 #8FE0C0; }
-.checkNo { background: #F5F0FF; color: #AAAACC; box-shadow: 0 3px 0 0 #D5CCFF; }
+.checkNo { background: #EBF5FF; color: #AAAACC; box-shadow: 0 3px 0 0 #B8D8F5; }
 .checkFeatured { background: rgba(255,255,255,0.28); color: #fff; box-shadow: 0 3px 0 0 rgba(0,0,0,0.08); }

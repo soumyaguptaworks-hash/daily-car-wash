@@ -9,17 +9,17 @@ import BottomNav from '../components/BottomNav';
 import styles from './Profile.module.css';
 
 const fields = [
-  { icon: <Mail size={18} color="#FF6B2C" />,       label: 'Email',        value: 'alex.johnson@gmail.com' },
+  { icon: <Mail size={18} color="#3B9EFF" />,       label: 'Email',        value: 'alex.johnson@gmail.com' },
   { icon: <User size={18} color="#7B5CFF" />,       label: 'Username',     value: 'Alex Johnson' },
   { icon: <Smartphone size={18} color="#00B469" />, label: 'Phone Number', value: '+91 98765 43210' },
-  { icon: <Home size={18} color="#3B8BFF" />,       label: 'Home Address', value: '12A, Koramangala, Bengaluru' },
+  { icon: <Home size={18} color="#3B9EFF" />,       label: 'Home Address', value: '12A, Koramangala, Bengaluru' },
 ];
 
 const menuItems = [
-  { icon: <Car       size={18} color="#FF6B2C" />, label: 'My Vehicles',          bg: '#FFE8D8' },
-  { icon: <CreditCard size={18} color="#00B469" />, label: 'Payment Methods',     bg: '#E8FFE8' },
-  { icon: <Bell      size={18} color="#3B8BFF" />, label: 'Notification Settings', bg: '#E8F0FF' },
-  { icon: <Gift      size={18} color="#7B5CFF" />, label: 'Referral & Rewards',   bg: '#F0E8FF' },
+  { icon: <Car       size={18} color="#3B9EFF" />, label: 'My Vehicles',           bg: '#D0E8FF' },
+  { icon: <CreditCard size={18} color="#00B469" />, label: 'Payment Methods',      bg: '#E8FFE8' },
+  { icon: <Bell      size={18} color="#3B9EFF" />, label: 'Notification Settings', bg: '#EBF5FF' },
+  { icon: <Gift      size={18} color="#7B5CFF" />, label: 'Referral & Rewards',    bg: '#F0E8FF' },
   { icon: <Star      size={18} color="#C8920A" fill="#C8920A" />, label: 'Rate the App', bg: '#FFF8E0' },
 ];
 
@@ -42,7 +42,7 @@ export default function Profile() {
 
           <div className={styles.avatarWrap}>
             <div className={styles.bigAvatar}>A</div>
-            <div className={styles.editBadge}><Pencil size={13} color="#FF6B2C" /></div>
+            <div className={styles.editBadge}><Pencil size={13} color="#3B9EFF" /></div>
           </div>
           <div className={styles.profileName}>Alex Johnson</div>
           <div className={styles.profileSub}>Premium Member · Since Jan 2025</div>
@@ -64,7 +64,7 @@ export default function Profile() {
               <div className={styles.fieldInput}>
                 <span className={styles.fiIcon}>{f.icon}</span>
                 <span className={styles.fiText}>{f.value}</span>
-                <Pencil size={14} color="#FF6B2C" style={{ cursor: 'pointer', flexShrink: 0 }} />
+                <Pencil size={14} color="#3B9EFF" style={{ cursor: 'pointer', flexShrink: 0 }} />
               </div>
             </div>
           ))}

@@ -1,36 +1,25 @@
-.header {
-  padding: 8px 20px 14px;
-}
-.greetRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 14px;
-}
-.greeting { font-size: 22px; font-weight: 900; color: #1A1A2E; line-height: 1.2; }
-.subGreeting { font-size: 13px; font-weight: 600; color: #4A4A6A; margin-top: 3px; }
+.header { padding: 8px 20px 14px; }
+.greetRow { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.greeting { font-size: 22px; font-weight: 900; color: #1A2A3E; line-height: 1.2; }
+.subGreeting { font-size: 13px; font-weight: 600; color: #3A5070; margin-top: 3px; }
 .avatar {
   width: 52px; height: 52px; border-radius: 18px;
-  background: linear-gradient(135deg, #FF8C55, #FF6B2C);
+  background: linear-gradient(135deg, #65B4FF, #3B9EFF);
   display: flex; align-items: center; justify-content: center;
   font-size: 22px; font-weight: 900; color: #fff;
-  box-shadow: 0 6px 0 0 #D8D2F5, 0 0 0 2.5px #E8E4FF;
+  box-shadow: 0 6px 0 0 #B8D8F5, 0 0 0 2.5px #D0E8FF;
   flex-shrink: 0;
 }
 
 .searchWrap { position: relative; }
-.searchIcon {
-  position: absolute; left: 14px; top: 50%;
-  transform: translateY(-50%);
-  color: #9090B0; width: 18px; height: 18px;
-}
+.searchIcon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); }
 .searchInput { padding-left: 44px !important; }
 
 /* Sub banner */
 .subBanner {
-  background: linear-gradient(135deg, #FF6B2C 0%, #FF9A5C 100%);
+  background: linear-gradient(135deg, #3B9EFF 0%, #65B4FF 100%);
   border-radius: 22px; padding: 16px 18px;
-  box-shadow: 0 8px 0 0 #C94A10, 0 0 0 3px rgba(255,107,44,0.18);
+  box-shadow: 0 8px 0 0 #1565BD, 0 0 0 3px rgba(59,158,255,0.18);
   color: #fff;
   display: flex; align-items: center; gap: 14px;
   cursor: pointer;
@@ -39,8 +28,7 @@
   width: 50px; height: 50px;
   background: rgba(255,255,255,0.2);
   border-radius: 16px; display: flex; align-items: center; justify-content: center;
-  font-size: 22px; flex-shrink: 0;
-  box-shadow: 0 4px 0 0 rgba(0,0,0,0.12);
+  flex-shrink: 0; box-shadow: 0 4px 0 0 rgba(0,0,0,0.12);
 }
 .subInfo { flex: 1; }
 .subInfo h4 { font-size: 14px; font-weight: 900; }
@@ -53,15 +41,12 @@
 }
 
 /* Quick grid */
-.quickGrid {
-  display: grid; grid-template-columns: repeat(4,1fr);
-  gap: 10px; padding: 0 20px 4px;
-}
+.quickGrid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; padding: 0 20px 4px; }
 .qaChip {
   display: flex; flex-direction: column; align-items: center; gap: 7px;
   background: #fff; border-radius: 18px; padding: 12px 6px 10px;
-  box-shadow: 0 6px 0 0 #D8D2F5, 0 0 0 2px #E8E4FF;
-  font-size: 10px; font-weight: 800; color: #4A4A6A;
+  box-shadow: 0 6px 0 0 #B8D8F5, 0 0 0 2px #D0E8FF;
+  font-size: 10px; font-weight: 800; color: #3A5070;
   cursor: pointer; border: none; font-family: 'Nunito', sans-serif;
   transition: transform 0.15s;
 }
@@ -69,56 +54,48 @@
 .qaIcon {
   width: 38px; height: 38px; border-radius: 14px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 18px; box-shadow: 0 4px 0 0 rgba(0,0,0,0.06);
+  box-shadow: 0 4px 0 0 rgba(0,0,0,0.06);
 }
 
-/* Service cards row */
-.cardsRow {
-  display: flex; gap: 14px;
-  padding: 0 20px 4px;
-  overflow-x: auto; scrollbar-width: none;
-}
+/* Service cards */
+.cardsRow { display: flex; gap: 14px; padding: 0 20px 4px; overflow-x: auto; scrollbar-width: none; }
 .cardsRow::-webkit-scrollbar { display: none; }
-
 .serviceCard {
   min-width: 158px; background: #fff;
   border-radius: 22px; overflow: hidden;
-  box-shadow: 0 7px 0 0 #D8D2F5, 0 0 0 2.5px #E8E4FF;
+  box-shadow: 0 7px 0 0 #B8D8F5, 0 0 0 2.5px #D0E8FF;
   flex-shrink: 0;
 }
-.cardImg {
-  height: 110px; position: relative;
-  display: flex; align-items: center; justify-content: center;
-}
+.cardImg { height: 110px; position: relative; display: flex; align-items: center; justify-content: center; }
 .cardIcon { display: flex; align-items: center; justify-content: center; }
 .ratingBadge {
   position: absolute; top: 8px; right: 8px;
-  background: #FF6B2C; color: #fff;
+  background: #3B9EFF; color: #fff;
   border-radius: 10px; padding: 3px 8px;
   font-size: 10px; font-weight: 800;
-  box-shadow: 0 3px 0 0 #C94A10;
+  box-shadow: 0 3px 0 0 #1565BD;
+  display: flex; align-items: center; gap: 3px;
 }
 .cardBody { padding: 10px 12px 12px; }
-.cardBody h4 { font-size: 13px; font-weight: 800; color: #1A1A2E; }
-.cardBody p  { font-size: 10px; font-weight: 600; color: #9090B0; margin-top: 2px; }
+.cardBody h4 { font-size: 13px; font-weight: 800; color: #1A2A3E; }
+.cardBody p  { font-size: 10px; font-weight: 600; color: #7090B0; margin-top: 2px; }
 .cardFooter { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; }
-.price { font-size: 14px; font-weight: 900; color: #FF6B2C; }
+.price { font-size: 14px; font-weight: 900; color: #3B9EFF; }
 
 /* Recent */
 .recentList { display: flex; flex-direction: column; gap: 10px; padding: 0 20px 8px; }
 .recentRow {
   display: flex; align-items: center; gap: 12px;
   background: #fff; border-radius: 20px; padding: 12px 14px;
-  box-shadow: 0 6px 0 0 #D8D2F5, 0 0 0 2px #E8E4FF;
+  box-shadow: 0 6px 0 0 #B8D8F5, 0 0 0 2px #D0E8FF;
 }
 .recentIconWrap {
   width: 48px; height: 48px; border-radius: 16px;
   display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  box-shadow: 0 4px 0 0 #D8D2F5;
+  flex-shrink: 0; box-shadow: 0 4px 0 0 #B8D8F5;
 }
 .recentInfo { flex: 1; }
-.recentTitle { font-size: 14px; font-weight: 800; color: #1A1A2E; }
-.recentSub   { font-size: 11px; font-weight: 600; color: #9090B0; margin-top: 2px; }
+.recentTitle { font-size: 14px; font-weight: 800; color: #1A2A3E; }
+.recentSub   { font-size: 11px; font-weight: 600; color: #7090B0; margin-top: 2px; }
 .recentRight { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; }
-.recentPrice { font-size: 13px; font-weight: 900; color: #FF6B2C; }
+.recentPrice { font-size: 13px; font-weight: 900; color: #3B9EFF; }

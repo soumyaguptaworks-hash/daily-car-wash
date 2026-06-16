@@ -27,7 +27,7 @@ const bcDetails = [
 ];
 
 const completed = [
-  { icon: <Droplets size={28} color="#FF6B2C" />, title: 'Basic Wash', sub: 'Jun 12 · Home Address', price: '₹299', rating: '4.9', color: 'linear-gradient(135deg,#FFD4BA,#FF9A5C)' },
+  { icon: <Droplets size={28} color="#3B9EFF" />, title: 'Basic Wash', sub: 'Jun 12 · Home Address', price: '₹299', rating: '4.9', color: 'linear-gradient(135deg,#C2E4FF,#65B4FF)' },
   { icon: <Droplets size={28} color="#9A5CFF" />, title: 'Foam Wash',  sub: 'Jun 9 · Office Parking', price: '₹499', rating: '5.0', color: 'linear-gradient(135deg,#D4BAFF,#9A5CFF)' },
 ];
 
@@ -57,8 +57,8 @@ export default function Bookings() {
           <>
             <div className={styles.bookingCard}>
               <div className={styles.bcTop}>
-                <div className={styles.bcImg} style={{ background: 'linear-gradient(135deg,#FFD4BA,#FF9A5C)' }}>
-                  <Car size={34} color="#FF6B2C" />
+                <div className={styles.bcImg} style={{ background: 'linear-gradient(135deg,#C2E4FF,#65B4FF)' }}>
+                  <Car size={34} color="#3B9EFF" />
                 </div>
                 <div className={styles.bcInfo}>
                   <h4>Basic Wash</h4>
@@ -120,8 +120,8 @@ export default function Bookings() {
                     4.9 · 342 washes completed
                   </div>
                 </div>
-                <button className={styles.callBtn}><Phone size={18} color="#FF6B2C" /></button>
-                <button className={styles.callBtn}><MessageCircle size={18} color="#3B8BFF" /></button>
+                <button className={styles.callBtn}><Phone size={18} color="#3B9EFF" /></button>
+                <button className={styles.callBtn}><MessageCircle size={18} color="#3B9EFF" /></button>
               </div>
             </div>
           </>
@@ -144,7 +144,7 @@ export default function Bookings() {
                     </div>
                   </div>
                   <div>
-                    <div style={{ fontWeight: 900, fontSize: 15, color: '#FF6B2C' }}>{b.price}</div>
+                    <div style={{ fontWeight: 900, fontSize: 15, color: '#3B9EFF' }}>{b.price}</div>
                     <span className="status-badge done" style={{ marginTop: 5, display: 'inline-flex' }}>
                       <span className="status-dot"/>Done
                     </span>

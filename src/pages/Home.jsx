@@ -8,21 +8,21 @@ import BottomNav from '../components/BottomNav';
 import styles from './Home.module.css';
 
 const services = [
-  { icon: <Droplets size={40} color="#FF6B2C" />, label: 'Basic',    price: '₹299',  rating: '4.9', color: 'linear-gradient(135deg,#FFD4BA,#FF9A5C)', reviews: '120' },
+  { icon: <Droplets size={40} color="#3B9EFF" />, label: 'Basic',    price: '₹299',  rating: '4.9', color: 'linear-gradient(135deg,#C2E4FF,#65B4FF)', reviews: '120' },
   { icon: <Wind     size={40} color="#9A5CFF" />, label: 'Foam',     price: '₹499',  rating: '4.8', color: 'linear-gradient(135deg,#D4BAFF,#9A5CFF)', reviews: '98' },
   { icon: <Sparkles size={40} color="#5CC8FF" />, label: 'Interior', price: '₹699',  rating: '4.7', color: 'linear-gradient(135deg,#BAE8FF,#5CC8FF)', reviews: '76' },
   { icon: <Crown    size={40} color="#C8920A" />, label: 'Premium',  price: '₹1299', rating: '5.0', color: 'linear-gradient(135deg,#FFEEBA,#FFCC44)', reviews: '203' },
 ];
 
 const quickActions = [
-  { icon: <Droplets size={20} color="#FF6B2C" />, label: 'Basic',    bg: '#FFE8D8' },
+  { icon: <Droplets size={20} color="#3B9EFF" />, label: 'Basic',    bg: '#D0E8FF' },
   { icon: <Wind     size={20} color="#00B469" />, label: 'Foam',     bg: '#E8FFE8' },
-  { icon: <Sparkles size={20} color="#3B8BFF" />, label: 'Interior', bg: '#E8F0FF' },
+  { icon: <Sparkles size={20} color="#3B9EFF" />, label: 'Interior', bg: '#EBF5FF' },
   { icon: <Crown    size={20} color="#C8920A" />, label: 'Premium',  bg: '#FFF8E0' },
 ];
 
 const recentBookings = [
-  { icon: <Droplets size={22} color="#FF6B2C" />, label: 'Basic Wash', sub: 'Jun 12 · Home Address', price: '₹299', color: 'linear-gradient(135deg,#FFD4BA,#FF9A5C)' },
+  { icon: <Droplets size={22} color="#3B9EFF" />, label: 'Basic Wash', sub: 'Jun 12 · Home Address', price: '₹299', color: 'linear-gradient(135deg,#C2E4FF,#65B4FF)' },
   { icon: <Wind     size={22} color="#9A5CFF" />, label: 'Foam Wash',  sub: 'Jun 9 · Office Parking', price: '₹499', color: 'linear-gradient(135deg,#D4BAFF,#9A5CFF)' },
 ];
 
