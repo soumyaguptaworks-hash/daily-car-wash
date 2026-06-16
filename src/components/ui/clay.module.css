@@ -1,284 +1,358 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap');
 
-/* ════════════════════════════════════════════════
-   CLAYMORPHISM UI KIT — self-contained design system
-   Puffy clay surfaces = outer drop shadow
-   + inner light highlight (top-left)
-   + inner soft shade (bottom-right)
-   ════════════════════════════════════════════════ */
+/*
+  CLAYMORPHISM KIT
+  Clay effect = outer soft drop shadow (floating depth)
+              + thick bottom shadow (3-D "press" illusion)
+              + inset top-left highlight (puffy inflate)
+              + inset bottom-right shade (curved underside)
+  All shadow values are HARDCODED — no CSS variable deps so every
+  component works without a .kit ancestor wrapper.
+*/
 
+/* ── scoped palette (still useful when .kit IS a parent) ── */
 .kit {
-  /* palette */
-  --c-blue:       #4DA3FF;
-  --c-blue-deep:  #2E7DE0;
-  --c-sky:        #BFE0FF;
-  --c-sky-soft:   #E3F2FF;
-  --c-ink:        #233A56;
-  --c-ink-soft:   #6E89A8;
-  --c-mute:       #9DB4CE;
-
-  --c-green:  #34D399;
-  --c-yellow: #FFC857;
-  --c-pink:   #FF8FB1;
-  --c-purple: #A78BFA;
-
-  /* surface */
-  --surface: #FFFFFF;
-  --field:   #EAF4FF;
-
-  /* radii */
-  --r-2xl: 34px;
-  --r-xl:  26px;
-  --r-lg:  20px;
-  --r-md:  16px;
-  --r-sm:  12px;
-
-  /* clay shadow tokens */
-  --clay-white:
-    8px 8px 18px rgba(120, 165, 210, 0.30),
-    -6px -6px 16px rgba(255, 255, 255, 0.90),
-    inset 3px 3px 6px rgba(255, 255, 255, 0.95),
-    inset -5px -5px 12px rgba(150, 185, 220, 0.22);
-
-  --clay-blue:
-    8px 10px 20px rgba(46, 125, 224, 0.40),
-    inset 3px 3px 7px rgba(255, 255, 255, 0.45),
-    inset -5px -6px 12px rgba(20, 80, 170, 0.45);
-
-  --clay-field-in:
-    inset 4px 4px 9px rgba(140, 175, 215, 0.40),
-    inset -4px -4px 9px rgba(255, 255, 255, 0.95);
-
+  --c-blue:      #4DA3FF;
+  --c-blue-deep: #2E7DE0;
+  --c-ink:       #233A56;
+  --c-ink-soft:  #6E89A8;
+  --c-mute:      #9DB4CE;
   font-family: 'Quicksand', sans-serif;
   color: var(--c-ink);
   -webkit-font-smoothing: antialiased;
 }
 
-.display { font-family: 'Fredoka', sans-serif; }
-
-/* ───────── surfaces ───────── */
+/* ─────────────────────────────────────────
+   CARDS
+───────────────────────────────────────── */
 .card {
-  background: var(--surface);
-  border-radius: var(--r-2xl);
-  box-shadow: var(--clay-white);
+  background: #fff;
+  border-radius: 28px;
   padding: 22px;
+  box-shadow:
+    0 2px 0 0 #C2D8EF,          /* thick bottom edge — "sitting on surface" */
+    0 10px 24px rgba(100,150,200,.20),
+    inset 0 1px 0 rgba(255,255,255,.9);
 }
 
-.cardTight { padding: 16px; border-radius: var(--r-xl); }
+.cardTight {
+  padding: 16px;
+  border-radius: 22px;
+}
 
-/* ───────── buttons ───────── */
+/* ─────────────────────────────────────────
+   BUTTONS  — primary (blue clay)
+───────────────────────────────────────── */
 .btn {
   font-family: 'Fredoka', sans-serif;
   font-weight: 600;
   font-size: 16px;
-  letter-spacing: .2px;
+  letter-spacing: .3px;
   border: none;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 9px;
-  padding: 15px 26px;
-  border-radius: var(--r-lg);
+  padding: 16px 26px;
+  border-radius: 20px;
   color: #fff;
-  background: linear-gradient(150deg, #66B2FF 0%, #4DA3FF 55%, #2E7DE0 100%);
-  box-shadow: var(--clay-blue);
-  transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+  background: linear-gradient(160deg, #74BBFF 0%, #4DA3FF 45%, #2E7DE0 100%);
+  /* clay: thick bottom + outer glow + inner highlight + inner underside shade */
+  box-shadow:
+    0 6px 0 0 #1A65C8,
+    0 10px 22px rgba(46,125,224,.45),
+    inset 0 2px 0 rgba(255,255,255,.40),
+    inset 0 -3px 6px rgba(10,60,160,.35);
+  transition: transform .12s ease, box-shadow .12s ease;
   text-decoration: none;
   line-height: 1;
+  -webkit-tap-highlight-color: transparent;
 }
-.btn:hover { filter: brightness(1.04); }
-.btn:active {
-  transform: translateY(3px) scale(.99);
+.btn:hover {
   box-shadow:
-    4px 5px 10px rgba(46,125,224,.35),
-    inset 3px 3px 7px rgba(20,80,170,.35),
-    inset -4px -4px 10px rgba(255,255,255,.25);
+    0 6px 0 0 #1A65C8,
+    0 14px 28px rgba(46,125,224,.50),
+    inset 0 2px 0 rgba(255,255,255,.45),
+    inset 0 -3px 6px rgba(10,60,160,.35);
+}
+.btn:active {
+  transform: translateY(5px);
+  box-shadow:
+    0 1px 0 0 #1A65C8,
+    0 4px 10px rgba(46,125,224,.30),
+    inset 0 2px 0 rgba(255,255,255,.30),
+    inset 0 -2px 4px rgba(10,60,160,.30);
 }
 
+/* soft / white clay variant */
 .btnSoft {
-  color: var(--c-blue-deep);
-  background: var(--surface);
-  box-shadow: var(--clay-white);
+  color: #2E7DE0;
+  background: #fff;
+  box-shadow:
+    0 6px 0 0 #BDD4EE,
+    0 10px 22px rgba(100,150,200,.22),
+    inset 0 2px 0 rgba(255,255,255,.95),
+    inset 0 -3px 6px rgba(130,170,210,.18);
+}
+.btnSoft:hover {
+  box-shadow:
+    0 6px 0 0 #BDD4EE,
+    0 14px 28px rgba(100,150,200,.28),
+    inset 0 2px 0 rgba(255,255,255,.95),
+    inset 0 -3px 6px rgba(130,170,210,.18);
 }
 .btnSoft:active {
-  transform: translateY(3px) scale(.99);
-  box-shadow: var(--clay-field-in);
+  transform: translateY(5px);
+  box-shadow:
+    0 1px 0 0 #BDD4EE,
+    0 4px 10px rgba(100,150,200,.15),
+    inset 0 2px 4px rgba(130,170,210,.25),
+    inset 0 -1px 3px rgba(255,255,255,.8);
 }
 
 .btnFull { width: 100%; }
-.btnSm   { font-size: 13px; padding: 10px 18px; border-radius: var(--r-md); gap: 6px; }
-.btnLg   { font-size: 18px; padding: 18px 30px; }
+.btnSm   { font-size: 13px; padding: 11px 18px; border-radius: 16px; gap: 6px; }
+.btnLg   { font-size: 18px; padding: 18px 32px; border-radius: 24px; }
 
-/* round icon buttons / FAB */
+/* ─────────────────────────────────────────
+   ICON BUTTONS
+───────────────────────────────────────── */
 .iconBtn {
   width: 52px; height: 52px;
-  border-radius: 50%;
+  border-radius: 18px;
   display: inline-flex; align-items: center; justify-content: center;
-  border: none; cursor: pointer;
+  border: none; cursor: pointer; flex-shrink: 0;
   color: #fff;
-  background: linear-gradient(150deg, #66B2FF, #2E7DE0);
-  box-shadow: var(--clay-blue);
+  background: linear-gradient(160deg, #74BBFF, #2E7DE0);
+  box-shadow:
+    0 5px 0 0 #1A65C8,
+    0 9px 20px rgba(46,125,224,.40),
+    inset 0 2px 0 rgba(255,255,255,.38),
+    inset 0 -3px 5px rgba(10,60,160,.30);
   transition: transform .12s ease, box-shadow .12s ease;
-  flex-shrink: 0;
 }
-.iconBtn:active { transform: translateY(3px) scale(.96); }
+.iconBtn:active {
+  transform: translateY(4px);
+  box-shadow:
+    0 1px 0 0 #1A65C8,
+    0 4px 10px rgba(46,125,224,.28);
+}
+
 .iconBtnSoft {
-  color: var(--c-blue-deep);
-  background: var(--surface);
-  box-shadow: var(--clay-white);
+  color: #2E7DE0;
+  background: #fff;
+  box-shadow:
+    0 5px 0 0 #BDD4EE,
+    0 9px 20px rgba(100,150,200,.20),
+    inset 0 2px 0 rgba(255,255,255,.95),
+    inset 0 -2px 5px rgba(130,170,210,.15);
 }
+.iconBtnSoft:active {
+  transform: translateY(4px);
+  box-shadow:
+    0 1px 0 0 #BDD4EE,
+    0 3px 8px rgba(100,150,200,.14);
+}
+
 .fab { width: 64px; height: 64px; border-radius: 24px; }
 
-/* ───────── badges & chips ───────── */
+/* ─────────────────────────────────────────
+   CHIPS & BADGES
+───────────────────────────────────────── */
 .badge {
   display: inline-flex; align-items: center; gap: 6px;
   font-family: 'Fredoka', sans-serif;
   font-weight: 500; font-size: 12px;
   padding: 6px 13px; border-radius: 999px;
-  background: var(--surface);
+  background: #fff;
   box-shadow:
-    3px 3px 8px rgba(120,165,210,.28),
-    -2px -2px 6px rgba(255,255,255,.9);
-  color: var(--c-ink);
+    0 3px 0 0 #C2D8EF,
+    0 5px 12px rgba(100,150,200,.18),
+    inset 0 1px 0 rgba(255,255,255,.9);
+  color: #233A56;
 }
 .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
 
 .chip {
   font-family: 'Quicksand', sans-serif;
   font-weight: 600; font-size: 13px;
-  padding: 10px 16px; border-radius: var(--r-md);
+  padding: 10px 16px; border-radius: 14px;
   border: none; cursor: pointer;
-  background: var(--field);
-  color: var(--c-ink-soft);
-  box-shadow: var(--clay-field-in);
+  background: #EAF4FF;
+  color: #6E89A8;
+  box-shadow:
+    inset 0 3px 6px rgba(140,175,215,.35),
+    inset 0 -3px 6px rgba(255,255,255,.9);
   transition: all .15s ease;
 }
 .chipActive {
   color: #fff;
   background: linear-gradient(150deg, #66B2FF, #2E7DE0);
-  box-shadow: var(--clay-blue);
+  box-shadow:
+    0 5px 0 0 #1A65C8,
+    0 8px 18px rgba(46,125,224,.38),
+    inset 0 2px 0 rgba(255,255,255,.35),
+    inset 0 -2px 5px rgba(10,60,160,.28);
 }
 
-/* ───────── input ───────── */
+/* ─────────────────────────────────────────
+   INPUT FIELD
+───────────────────────────────────────── */
 .field {
   display: flex; align-items: center; gap: 10px;
-  background: var(--field);
-  border-radius: var(--r-lg);
+  background: #EAF4FF;
+  border-radius: 18px;
   padding: 14px 18px;
-  box-shadow: var(--clay-field-in);
+  box-shadow:
+    inset 0 3px 7px rgba(140,175,215,.38),
+    inset 0 -3px 7px rgba(255,255,255,.95);
 }
 .input {
   border: none; background: none; outline: none;
   font-family: 'Quicksand', sans-serif;
   font-weight: 600; font-size: 15px;
-  color: var(--c-ink); width: 100%;
+  color: #233A56; width: 100%;
 }
-.input::placeholder { color: var(--c-mute); }
+.input::placeholder { color: #9DB4CE; }
 
-/* ───────── toggle ───────── */
+/* ─────────────────────────────────────────
+   TOGGLE
+───────────────────────────────────────── */
 .toggle {
   width: 56px; height: 32px; border-radius: 999px;
   border: none; cursor: pointer; position: relative;
-  background: var(--field);
-  box-shadow: var(--clay-field-in);
-  transition: background .2s ease;
+  background: #EAF4FF;
+  box-shadow:
+    inset 0 3px 6px rgba(140,175,215,.38),
+    inset 0 -3px 6px rgba(255,255,255,.9);
+  transition: background .22s ease, box-shadow .22s ease;
   flex-shrink: 0;
 }
-.toggleOn { background: linear-gradient(150deg, #66B2FF, #2E7DE0); box-shadow: var(--clay-blue); }
+.toggleOn {
+  background: linear-gradient(150deg, #66B2FF, #2E7DE0);
+  box-shadow:
+    0 4px 0 0 #1A65C8,
+    0 8px 16px rgba(46,125,224,.38),
+    inset 0 2px 0 rgba(255,255,255,.35),
+    inset 0 -2px 4px rgba(10,60,160,.28);
+}
 .knob {
   position: absolute; top: 4px; left: 4px;
   width: 24px; height: 24px; border-radius: 50%;
   background: #fff;
-  box-shadow: 2px 2px 5px rgba(120,165,210,.5);
+  box-shadow: 0 2px 5px rgba(100,150,200,.4), inset 0 1px 0 rgba(255,255,255,.9);
   transition: transform .22s cubic-bezier(.4,1.6,.6,1);
 }
 .toggleOn .knob { transform: translateX(24px); }
 
-/* ───────── checkbox ───────── */
+/* ─────────────────────────────────────────
+   CHECKBOX
+───────────────────────────────────────── */
 .check {
   width: 26px; height: 26px; border-radius: 9px;
   border: none; cursor: pointer; flex-shrink: 0;
-  background: var(--field);
-  box-shadow: var(--clay-field-in);
+  background: #EAF4FF;
+  box-shadow:
+    inset 0 3px 6px rgba(140,175,215,.38),
+    inset 0 -3px 6px rgba(255,255,255,.9);
   display: inline-flex; align-items: center; justify-content: center;
   color: #fff; transition: all .15s ease;
 }
 .checkOn {
-  background: linear-gradient(150deg, var(--c-green), #16B47B);
+  background: linear-gradient(150deg, #3FDC9E, #16B47B);
   box-shadow:
-    3px 3px 8px rgba(22,180,123,.4),
-    inset 2px 2px 5px rgba(255,255,255,.4),
-    inset -3px -3px 7px rgba(10,130,90,.4);
+    0 4px 0 0 #0D9B5A,
+    0 7px 16px rgba(22,180,123,.38),
+    inset 0 2px 0 rgba(255,255,255,.4),
+    inset 0 -2px 4px rgba(10,130,80,.3);
 }
 
-/* ───────── progress ───────── */
+/* ─────────────────────────────────────────
+   PROGRESS
+───────────────────────────────────────── */
 .progressTrack {
   height: 14px; border-radius: 999px;
-  background: var(--field);
-  box-shadow: var(--clay-field-in);
+  background: #EAF4FF;
+  box-shadow:
+    inset 0 3px 6px rgba(140,175,215,.38),
+    inset 0 -3px 6px rgba(255,255,255,.9);
   overflow: hidden;
 }
 .progressFill {
   height: 100%; border-radius: 999px;
-  background: linear-gradient(90deg, #66B2FF, #2E7DE0);
+  background: linear-gradient(90deg, #74BBFF, #2E7DE0);
   box-shadow: inset 0 2px 3px rgba(255,255,255,.5);
 }
 
-/* ───────── avatar ───────── */
+/* ─────────────────────────────────────────
+   AVATAR
+───────────────────────────────────────── */
 .avatar {
   width: 52px; height: 52px; border-radius: 20px;
   display: flex; align-items: center; justify-content: center;
   font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 20px;
   color: #fff;
-  background: linear-gradient(150deg, #66B2FF, #2E7DE0);
-  box-shadow: var(--clay-blue);
+  background: linear-gradient(160deg, #74BBFF, #2E7DE0);
+  box-shadow:
+    0 5px 0 0 #1A65C8,
+    0 9px 20px rgba(46,125,224,.40),
+    inset 0 2px 0 rgba(255,255,255,.38);
   flex-shrink: 0;
 }
 
-/* ───────── tinted icon tile ───────── */
+/* ─────────────────────────────────────────
+   TILE (icon container)
+───────────────────────────────────────── */
 .tile {
-  width: 46px; height: 46px; border-radius: var(--r-md);
+  width: 46px; height: 46px; border-radius: 16px;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
 
-/* ───────── calendar ───────── */
+/* ─────────────────────────────────────────
+   CALENDAR
+───────────────────────────────────────── */
 .cal { width: 100%; }
 .calHead {
   display: flex; align-items: center; justify-content: space-between;
   margin-bottom: 14px;
 }
-.calTitle { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 17px; }
+.calTitle { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 17px; color: #233A56; }
 .calNav {
   width: 34px; height: 34px; border-radius: 12px; border: none; cursor: pointer;
-  background: var(--field); color: var(--c-ink-soft);
-  box-shadow: var(--clay-field-in);
+  background: #EAF4FF; color: #6E89A8;
+  box-shadow:
+    inset 0 3px 6px rgba(140,175,215,.35),
+    inset 0 -3px 6px rgba(255,255,255,.9);
   display: flex; align-items: center; justify-content: center;
 }
 .calGrid { display: grid; grid-template-columns: repeat(7,1fr); gap: 5px; }
 .calDow {
   text-align: center; font-size: 11px; font-weight: 700;
-  color: var(--c-mute); padding-bottom: 6px;
+  color: #9DB4CE; padding-bottom: 6px;
 }
 .calCell {
   aspect-ratio: 1; border: none; cursor: pointer;
   border-radius: 12px;
   font-family: 'Quicksand', sans-serif; font-weight: 600; font-size: 13px;
-  color: var(--c-ink); background: transparent;
+  color: #233A56; background: transparent;
   display: flex; align-items: center; justify-content: center;
   transition: all .12s ease;
 }
-.calCell:hover { background: var(--c-sky-soft); }
-.calMute { color: var(--c-mute); opacity: .55; }
+.calCell:hover { background: #E3F2FF; }
+.calMute { color: #9DB4CE; opacity: .5; }
 .calToday {
   color: #fff;
-  background: linear-gradient(150deg, #66B2FF, #2E7DE0);
-  box-shadow: var(--clay-blue);
+  background: linear-gradient(160deg, #74BBFF, #2E7DE0);
+  box-shadow:
+    0 4px 0 0 #1A65C8,
+    0 7px 14px rgba(46,125,224,.38),
+    inset 0 1px 0 rgba(255,255,255,.35);
 }
 .calDotted { position: relative; }
 .calDotted::after {
-  content: ''; position: absolute; bottom: 5px; left: 50%;
+  content: ''; position: absolute; bottom: 4px; left: 50%;
   transform: translateX(-50%);
-  width: 5px; height: 5px; border-radius: 50%; background: var(--c-pink);
+  width: 5px; height: 5px; border-radius: 50%; background: #FF8FB1;
 }
