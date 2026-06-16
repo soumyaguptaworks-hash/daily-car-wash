@@ -108,12 +108,14 @@ body::after  { width: 220px; height: 220px; bottom: 40px; left: -70px; }
 /* ── Bottom nav ── */
 .bottom-nav {
   display: flex;
+  align-items: center;
   background: #fff;
-  border-radius: 28px 28px 0 0;
-  padding: 12px 8px 28px;
-  box-shadow: 0 -5px 0 0 #B8D8F5, 0 0 0 2px #D0E8FF;
+  border-radius: 28px;
+  padding: 10px 10px;
+  margin: 0 12px 12px;
+  box-shadow: 0 8px 0 0 #B8D8F5, 0 0 0 2.5px #D0E8FF;
   flex-shrink: 0;
-  gap: 4px;
+  gap: 2px;
 }
 .nav-item {
   flex: 1;
@@ -121,19 +123,38 @@ body::after  { width: 220px; height: 220px; bottom: 40px; left: -70px; }
   flex-direction: column;
   align-items: center;
   gap: 3px;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 800;
   color: var(--text-soft);
   cursor: pointer;
-  padding: 6px 4px;
-  border-radius: 14px;
+  padding: 4px 2px;
+  border-radius: 16px;
   border: none;
   background: none;
   font-family: 'Nunito', sans-serif;
   transition: all 0.15s ease;
 }
 .nav-item.active { color: var(--blue); }
-.nav-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); }
+.nav-label { line-height: 1; }
+.nav-icon-wrap {
+  display: flex; align-items: center; justify-content: center;
+  width: 40px; height: 36px; border-radius: 14px;
+  transition: all 0.15s ease;
+}
+.active-wrap {
+  background: #D0E8FF;
+  box-shadow: 0 3px 0 0 #B8D8F5;
+}
+.nav-fab {
+  width: 52px; height: 52px; border-radius: 18px; flex-shrink: 0;
+  background: var(--blue); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  border: none; cursor: pointer;
+  box-shadow: 0 6px 0 0 var(--blue-shadow);
+  transition: transform 0.1s, box-shadow 0.1s;
+  margin: 0 4px;
+}
+.nav-fab:active { transform: translateY(4px); box-shadow: 0 2px 0 0 var(--blue-shadow); }
 
 /* ═══ CLAY DESIGN SYSTEM ═══ */
 .clay-card {
