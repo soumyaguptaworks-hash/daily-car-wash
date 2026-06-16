@@ -6,6 +6,7 @@ import Bookings      from './pages/Bookings';
 import Notifications from './pages/Notifications';
 import Location      from './pages/Location';
 import Profile       from './pages/Profile';
+import ClayKit       from './pages/ClayKit';
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/location"      element={<Location />} />
         <Route path="/profile"       element={<Profile />} />
+        <Route path="/clay-ui"       element={<ClayKit />} />
         <Route path="*"              element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
