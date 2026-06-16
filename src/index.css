@@ -23,7 +23,7 @@
 }
 
 html, body {
-  height: 100%;
+  min-height: 100%;
   font-family: 'Nunito', sans-serif;
   background: linear-gradient(160deg, #C2DCFF 0%, #D8EEFF 50%, #C8E8FF 100%);
   background-attachment: fixed;
@@ -35,46 +35,49 @@ body::before, body::after {
   content: '';
   position: fixed;
   border-radius: 50%;
-  background: rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.45);
   pointer-events: none;
   z-index: 0;
 }
-body::before { width: 220px; height: 220px; top: -60px; right: -60px; }
-body::after  { width: 180px; height: 180px; bottom: 60px; left: -50px; }
+body::before { width: 280px; height: 280px; top: -80px; right: -80px; }
+body::after  { width: 220px; height: 220px; bottom: 40px; left: -70px; }
 
 #root {
-  height: 100%;
+  min-height: 100vh;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  padding: 0;
+  padding: 20px 16px;
   position: relative;
   z-index: 1;
 }
 
-/* ── Phone shell ── */
+/* ── Phone shell — always a rounded floating card ── */
 .phone-shell {
   width: 100%;
   max-width: 390px;
-  min-height: 100dvh;
+  height: calc(100dvh - 40px);
   background: #EBF5FF;
   display: flex;
   flex-direction: column;
   position: relative;
   overflow: hidden;
+  border-radius: 44px;
+  box-shadow:
+    0 14px 0 0 #8BBFE0,
+    0 0 0 3px #B8D8F5,
+    0 32px 64px rgba(28, 100, 200, 0.20);
 }
 
-/* On larger screens — show as a phone with visible rounded edges */
 @media (min-width: 480px) {
-  #root { align-items: center; padding: 28px 16px; min-height: 100vh; }
+  #root { padding: 28px 20px; }
   .phone-shell {
-    border-radius: 48px;
-    min-height: 812px;
-    max-height: 860px;
+    height: min(860px, calc(100dvh - 56px));
+    border-radius: 52px;
     box-shadow:
-      0 16px 0 0 #8BBFE0,
-      0 0 0 3.5px #B8D8F5,
-      0 40px 80px rgba(28, 100, 200, 0.18);
+      0 18px 0 0 #8BBFE0,
+      0 0 0 4px #B8D8F5,
+      0 48px 96px rgba(28, 100, 200, 0.22);
   }
 }
 
