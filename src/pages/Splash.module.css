@@ -13,7 +13,7 @@
   background: #fff;
   border-radius: 20px;
   padding: 10px 20px;
-  box-shadow: 0 6px 0 0 #B8D8F5, 0 0 0 2.5px #D0E8FF;
+  box-shadow: 0 6px 20px rgba(59,158,255,0.22);
   font-size: 18px;
   font-weight: 900;
   color: #3B9EFF;
@@ -24,7 +24,7 @@
   height: 270px;
   background: radial-gradient(ellipse at 40% 40%, #C2E4FF 0%, #65B4FF 55%, #3B9EFF 100%);
   border-radius: 52% 60% 55% 65%;
-  box-shadow: 0 16px 0 0 #1565BD, 0 0 0 5px rgba(59,158,255,0.15);
+  box-shadow: 0 18px 48px rgba(21,101,189,0.45);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -41,7 +41,7 @@
 .dot {
   width: 10px; height: 10px; border-radius: 5px;
   background: #65B4FF; opacity: 0.4;
-  box-shadow: 0 3px 0 0 #1565BD;
+  box-shadow: 0 3px 10px rgba(21,101,189,0.28);
   transition: all 0.2s;
 }
 .dot.active { width: 28px; opacity: 1; background: #3B9EFF; }
@@ -59,7 +59,7 @@
   display: flex; align-items: center; gap: 6px;
   background: #fff; border-radius: 14px; padding: 9px 14px;
   font-size: 12px; font-weight: 800; color: #3A5070;
-  box-shadow: 0 5px 0 0 #B8D8F5, 0 0 0 2px #D0E8FF;
+  box-shadow: 0 5px 16px rgba(59,158,255,0.16);
 }
 
 .actions { padding: 20px 24px 32px; display: flex; flex-direction: column; gap: 12px; }
