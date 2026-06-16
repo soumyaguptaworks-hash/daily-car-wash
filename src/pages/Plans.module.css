@@ -25,10 +25,13 @@
 .toggleActive {
   flex: 1; text-align: center; padding: 9px;
   font-size: 13px; font-weight: 800;
-  background: #3B9EFF; color: #fff;
-  border-radius: 12px; cursor: pointer; border: none;
-  box-shadow: 0 4px 0 0 #1565BD; font-family: 'Nunito', sans-serif;
+  background: linear-gradient(180deg, #5BBEFF 0%, #2A94F0 100%);
+  color: #fff;
+  border-radius: 50px; cursor: pointer; border: none;
+  box-shadow: 0 6px 16px rgba(43,148,240,0.45), inset 0 1px 0 rgba(255,255,255,0.3);
+  font-family: 'Nunito', sans-serif;
   display: flex; align-items: center; justify-content: center; gap: 6px;
+  transition: transform 0.12s, box-shadow 0.12s;
 }
 .saveBadge {
   background: rgba(255,255,255,0.25);
