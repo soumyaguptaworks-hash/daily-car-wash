@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import {
   Bell, MapPin, Search, Sparkles, CalendarClock, Car, Wallet,
-  ChevronRight, Navigation,
+  ChevronRight, Navigation, ArrowRight,
 } from 'lucide-react';
 import { useStore } from '../store';
 import { ALL_SERVICES, OFFERS, inr } from '../data';
@@ -44,6 +44,22 @@ export default function Home() {
       </div>
 
       <ClayInput icon={<Search size={18} color="#9DB4CE" />} placeholder="Search services…" onFocus={() => nav('/book')} readOnly />
+
+      {/* hero car banner */}
+      <Section>
+        <div className={s.heroBanner}>
+          <div className={s.heroText}>
+            <div className={s.heroTitle}>Your ride,{'\n'}always spotless.</div>
+            <div className={s.heroSub}>Professional doorstep car wash</div>
+            <button className={s.heroBtn} onClick={() => nav('/book')}>
+              Book now <ArrowRight size={13} />
+            </button>
+          </div>
+          <div className={s.heroCar}>
+            <ClayCarSVG width={168} uid="home-hero" />
+          </div>
+        </div>
+      </Section>
 
       {/* active subscription */}
       {activePlan && (
