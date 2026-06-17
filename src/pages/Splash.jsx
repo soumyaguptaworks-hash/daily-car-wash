@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Car } from 'lucide-react';
 import { useStore } from '../store';
+import { ClayCarSVG } from '../components/bits';
 import a from './auth.module.css';
 
 export default function Splash() {
@@ -19,7 +19,7 @@ export default function Splash() {
 
   return (
     <div className={`${a.full} ${a.splash}`}>
-      <div className={a.splashLogo}><Car size={58} strokeWidth={2.2} /></div>
+      <div className={a.splashCar}><ClayCarSVG width={240} uid="splash" /></div>
       <h1 className={a.splashName}>Daily Car Wash</h1>
       <p className={a.splashTag}>Doorstep car care, made simple</p>
       <div className={a.dots3}>

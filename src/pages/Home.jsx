@@ -6,7 +6,7 @@ import {
 import { useStore } from '../store';
 import { ALL_SERVICES, OFFERS, inr } from '../data';
 import { ClayInput, ClayButton } from '../components/ui';
-import { StatusBadge } from '../components/bits';
+import { StatusBadge, ClayCarSVG } from '../components/bits';
 import { Page, Section, L } from '../components/layout';
 import s from './app.module.css';
 
@@ -48,7 +48,10 @@ export default function Home() {
       {/* active subscription */}
       {activePlan && (
         <Section title="Your subscription" action="Manage" onAction={() => nav('/plans')}>
-          <div className={s.subCard} onClick={() => nav('/plans')} role="button">
+          <div className={s.subCard} onClick={() => nav('/plans')} role="button" style={{ position: 'relative', overflow: 'hidden' }}>
+            <div style={{ position: 'absolute', bottom: -14, right: -14, pointerEvents: 'none', opacity: 0.20 }}>
+              <ClayCarSVG width={138} uid="home-sub" />
+            </div>
             <div className={s.subTop}>
               <span className={s.subPlanTag}><activePlan.Icon size={20} /> {activePlan.name} Plan</span>
               <span className={s.subPill}>{subscription.paused ? 'Paused' : 'Active'}</span>
