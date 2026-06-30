@@ -1,37 +1,23 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { SEED_USER, SEED_VEHICLES, SEED_ADDRESSES, PLANS } from './data';
+import { PLANS } from './data';
 
-const KEY = 'dcw-state-v2';
+const KEY = 'dcw-state-v3';
 
 const initial = {
   onboarded: false,
   loggedIn: false,
-  user: SEED_USER,
-  vehicles: SEED_VEHICLES,
-  addresses: SEED_ADDRESSES,
-  // active subscription (planId null = no plan yet → shows "buy monthly" upsell)
+  user: { name: '', phone: '', initials: '' },
+  vehicles: [],
+  addresses: [],
   subscription: {
     planId: null,
-    startedDays: ['Mon', 'Wed', 'Fri', 'Sun'],
-    slot: 'morning',
+    startedDays: [],
+    slot: null,
     washesUsed: 0,
     paused: false,
   },
-  wallet: 480,
-  bookings: [
-    {
-      id: 'bk1', kind: 'subscription', title: 'Medium Plan Wash', vehicleId: 'v1',
-      date: 'Tomorrow', time: '08:30 AM', address: 'Home', status: 'assigned', price: 0,
-    },
-    {
-      id: 'bk2', kind: 'onetime', title: 'Foam Wash', vehicleId: 'v2',
-      date: 'Today', time: '05:30 PM', address: 'Office', status: 'started', price: 349,
-    },
-    {
-      id: 'bk0', kind: 'onetime', title: 'Premium Detailing', vehicleId: 'v1',
-      date: '12 Jun', time: '10:00 AM', address: 'Home', status: 'completed', price: 1499, rated: true,
-    },
-  ],
+  wallet: 0,
+  bookings: [],
 };
 
 function load() {
