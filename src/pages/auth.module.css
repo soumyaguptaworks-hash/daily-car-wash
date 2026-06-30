@@ -9,6 +9,24 @@
   position: relative;
 }
 
+/* ── video splash (mobile intro) ── */
+.videoSplash {
+  max-width: 480px;
+  margin: 0 auto;
+  height: 100dvh;
+  background: #0B2A4A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+.splashVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 /* ── splash ── */
 .splash {
   align-items: center;
@@ -74,7 +92,54 @@
 .obDotOn { width: 26px; border-radius: 5px; background: var(--c-blue); }
 
 /* ── login ── */
-.authHead { margin-top: 8px; margin-bottom: 30px; }
+.loginHeader {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 24px;
+}
+.loginBrand { flex: 1; }
+.loginBrandName {
+  font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 19px; color: var(--c-ink);
+}
+.loginBrandRating {
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-top: 4px; font-size: 12px; font-weight: 700;
+  color: #FFC857; background: #FFFBEA;
+  padding: 3px 10px; border-radius: 999px;
+  border: 1.5px solid #FFE988;
+}
+.loginPromo {
+  margin-top: 26px;
+  display: flex; flex-direction: column; gap: 13px;
+}
+.loginPromoTitle {
+  font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 17px; color: var(--c-ink);
+}
+.loginBenefits {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+}
+.loginBenefitCard {
+  background: #fff; border-radius: 18px; padding: 13px 13px 11px;
+  box-shadow: 6px 6px 14px rgba(120,165,210,.2), -4px -4px 10px rgba(255,255,255,.9);
+}
+.loginBenefitEmoji { display: block; line-height: 0; margin-bottom: 9px; }
+.loginBenefitTitle {
+  font-family: 'Fredoka', sans-serif; font-weight: 500; font-size: 13.5px; color: var(--c-ink);
+}
+.loginBenefitSub {
+  font-size: 11px; font-weight: 600; color: var(--c-ink-soft); margin-top: 2px;
+}
+.loginTesti {
+  background: linear-gradient(140deg,#EBF5FF,#F5F9FF);
+  border-radius: 18px; padding: 15px 16px;
+  border: 1.5px solid #D0E8FF;
+}
+.loginTestiStars { font-size: 13px; color: #FFC857; margin-bottom: 7px; letter-spacing: 1px; }
+.loginTestiText {
+  font-size: 13px; font-weight: 600; color: var(--c-ink); line-height: 1.55;
+}
+.loginTestiBy {
+  font-size: 11.5px; font-weight: 700; color: var(--c-ink-soft); margin-top: 8px;
+}
+.authHead { margin-top: 4px; margin-bottom: 24px; }
 .authTitle { font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 28px; color: var(--c-ink); }
 .authText { font-size: 15px; font-weight: 600; color: var(--c-ink-soft); margin-top: 8px; line-height: 1.5; }
 .phoneField {

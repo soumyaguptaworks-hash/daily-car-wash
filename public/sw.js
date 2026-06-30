@@ -1,6 +1,6 @@
-// Minimal offline-first service worker for the Clay PWA.
-const CACHE = 'clay-v1';
-const CORE = ['/', '/index.html', '/icon.svg', '/manifest.webmanifest'];
+// Minimal offline-first service worker for the Daily Car Wash PWA.
+const CACHE = 'dcw-v2';
+const CORE = ['/', '/index.html', '/logo.png', '/manifest.webmanifest'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(CORE)));

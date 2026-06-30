@@ -16,6 +16,7 @@ import Addresses     from './pages/Addresses';
 import Wallet        from './pages/Wallet';
 import Notifications from './pages/Notifications';
 import Chat          from './pages/Chat';
+import Help          from './pages/Help';
 import Profile       from './pages/Profile';
 
 export default function App() {
@@ -44,6 +45,7 @@ export default function App() {
             <Route path="/wallet"        element={<Wallet />} />
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/chat"          element={<Chat />} />
+            <Route path="/help"          element={<Help />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />

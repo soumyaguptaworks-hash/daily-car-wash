@@ -1,19 +1,31 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Car, MapPin, Wallet, Bell, Star, ShieldCheck, HelpCircle,
-  LogOut, ChevronRight, Crown,
+  LogOut, ChevronRight, Crown, Pencil, Check, X,
 } from 'lucide-react';
 import { useStore } from '../store';
-import { ClayButton } from '../components/ui';
+import { ClayButton, ClayInput } from '../components/ui';
 import { Stars } from '../components/bits';
 import { Page, TopBar, Section, L } from '../components/layout';
 import s from './app.module.css';
 
 export default function Profile() {
   const nav = useNavigate();
-  const { user, activePlan, subscription, bookings, logout } = useStore();
+  const { user, activePlan, subscription, bookings, logout, updateUser } = useStore();
 
   const completed = bookings.filter((b) => b.status === 'completed').length;
+
+  /* ── edit profile ── */
+  const [editing, setEditing] = useState(false);
+  const [form, setForm] = useState({ name: '', phone: '', email: '' });
+  const startEdit = () => { setForm({ name: user.name, phone: user.phone, email: user.email || '' }); setEditing(true); };
+  const set = (k, v) => setForm((f) => ({ ...f, [k]: v }));
+  const saveProfile = () => {
+    if (!form.name.trim()) return;
+    updateUser({ name: form.name.trim(), phone: form.phone.trim(), email: form.email.trim() });
+    setEditing(false);
+  };
 
   const MENU = [
     { Icon: Car,        label: 'My vehicles',       to: '/vehicles',      color: '#4DA3FF' },
@@ -22,7 +34,7 @@ export default function Profile() {
     { Icon: Bell,       label: 'Notifications',     to: '/notifications', color: '#FF8FB1' },
     { Icon: Star,       label: 'Ratings & reviews', to: '/home',          color: '#A78BFA' },
     { Icon: ShieldCheck,label: 'Privacy & security',to: '/home',          color: '#34D399' },
-    { Icon: HelpCircle, label: 'Help & support',    to: '/home',          color: '#4DA3FF' },
+    { Icon: HelpCircle, label: 'Help & support',    to: '/help',          color: '#4DA3FF' },
   ];
 
   return (
@@ -43,7 +55,36 @@ export default function Profile() {
         <div style={{ fontFamily: 'Fredoka, sans-serif', fontWeight: 600, fontSize: 22, color: '#233A56' }}>{user.name}</div>
         <div style={{ fontSize: 13, fontWeight: 600, color: '#6E89A8', marginTop: 4 }}>{user.phone}</div>
         <Stars value={4.9} size={14} showValue />
+        {!editing && (
+          <button className={s.editProfileBtn} onClick={startEdit}>
+            <Pencil size={14} /> Edit profile
+          </button>
+        )}
       </div>
+
+      {/* edit profile form */}
+      {editing && (
+        <Section title="Edit profile">
+          <div className={L.col}>
+            <div>
+              <span className={L.fieldLabel}>Full name</span>
+              <ClayInput placeholder="Your name" value={form.name} onChange={(e) => set('name', e.target.value)} />
+            </div>
+            <div>
+              <span className={L.fieldLabel}>Phone number</span>
+              <ClayInput placeholder="+91 98765 43210" value={form.phone} onChange={(e) => set('phone', e.target.value)} />
+            </div>
+            <div>
+              <span className={L.fieldLabel}>Email address</span>
+              <ClayInput placeholder="you@email.com" value={form.email} onChange={(e) => set('email', e.target.value)} />
+            </div>
+            <div className={L.row}>
+              <ClayButton full onClick={saveProfile}><Check size={17} /> Save changes</ClayButton>
+              <ClayButton full variant="soft" onClick={() => setEditing(false)}><X size={17} /> Cancel</ClayButton>
+            </div>
+          </div>
+        </Section>
+      )}
 
       {/* stats */}
       <div className={L.grid2} style={{ marginBottom: 26 }}>

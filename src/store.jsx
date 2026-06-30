@@ -60,6 +60,14 @@ export function StoreProvider({ children }) {
     completeOnboarding: () => set({ onboarded: true }),
     login: () => set({ loggedIn: true, onboarded: true }),
     logout: () => set({ loggedIn: false }),
+
+    updateUser: (patch) => set((s) => {
+      const next = { ...s.user, ...patch };
+      if (patch.name) {
+        next.initials = patch.name.trim().split(/\s+/).map((w) => w[0]).slice(0, 2).join('').toUpperCase();
+      }
+      return { user: next };
+    }),
     reset: () => { localStorage.removeItem(KEY); setState(initial); },
 
     addVehicle: (v) => set((s) => ({ vehicles: [...s.vehicles, { ...v, id: 'v' + (s.vehicles.length + 1) + Date.now() }] })),

@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Car, MapPin, Plus, CheckCircle2 } from 'lucide-react';
+import { Car, MapPin, Plus, CheckCircle2, Ticket, X, ChevronRight, BadgePercent } from 'lucide-react';
 import { useStore } from '../store';
-import { SERVICE_GROUPS, ALL_SERVICES, TIME_SLOTS, inr } from '../data';
+import { SERVICE_GROUPS, ALL_SERVICES, TIME_SLOTS, PLANS, COUPONS, applyCoupon, inr } from '../data';
 import { ClayButton, ClayChip, ClayCalendar } from '../components/ui';
 import { Page, TopBar, Section, L } from '../components/layout';
 import s from './app.module.css';
@@ -10,7 +10,8 @@ import s from './app.module.css';
 export default function Book() {
   const nav = useNavigate();
   const { state } = useLocation();
-  const { vehicles, addresses, addBooking } = useStore();
+  const { vehicles, addresses, addBooking, activePlan } = useStore();
+  const minPlanPrice = Math.min(...PLANS.map((p) => p.price));
 
   const now = new Date();
   const [cat, setCat] = useState('Exterior');
@@ -23,11 +24,35 @@ export default function Book() {
   const svc = useMemo(() => ALL_SERVICES.find((x) => x.id === svcId), [svcId]);
   const catItems = SERVICE_GROUPS.find((g) => g.group === cat)?.items || [];
 
+  /* ── coupon state ── */
+  const price = svc?.price || 0;
+  const [code, setCode] = useState('');
+  const [applied, setApplied] = useState(null); // { code, discount, message }
+  const [couponErr, setCouponErr] = useState('');
+
+  const apply = (raw) => {
+    const r = applyCoupon(raw, price);
+    if (r.ok) {
+      setApplied({ code: raw.trim().toUpperCase(), discount: r.discount, message: r.message });
+      setCode(raw.trim().toUpperCase());
+      setCouponErr('');
+    } else {
+      setApplied(null);
+      setCouponErr(r.message || 'Invalid coupon code');
+    }
+  };
+
+  const removeCoupon = () => { setApplied(null); setCode(''); setCouponErr(''); };
+
+  const discount = applied?.discount || 0;
+  const total = Math.max(0, price - discount);
+
   const confirm = () => {
     const addr = addresses.find((a) => a.id === addrId);
     addBooking({
       kind: 'onetime', title: svc.name, vehicleId: vehId,
-      date: `${day} ${now.toLocaleString('en-US', { month: 'short' })}`, time, address: addr?.label || 'Home', price: svc.price,
+      date: `${day} ${now.toLocaleString('en-US', { month: 'short' })}`, time, address: addr?.label || 'Home',
+      price: total, coupon: applied?.code || null, discount,
     });
     nav('/bookings');
   };
@@ -35,6 +60,18 @@ export default function Book() {
   return (
     <Page>
       <TopBar title="Book a Wash" subtitle="One-time service" />
+
+      {/* monthly-pack promo — only for non-subscribers */}
+      {!activePlan && (
+        <button className={s.planPromo} onClick={() => nav('/plans')}>
+          <span className={s.planPromoIcon}><BadgePercent size={22} /></span>
+          <span style={{ flex: 1, textAlign: 'left' }}>
+            <span className={s.planPromoTitle}>Wash more, pay less</span>
+            <span className={s.planPromoSub}>Go monthly from {inr(minPlanPrice)} · save up to 40% vs one-time washes</span>
+          </span>
+          <span className={s.planPromoCta}>View plans <ChevronRight size={15} /></span>
+        </button>
+      )}
 
       {/* category + service */}
       <Section title="Choose a service">
@@ -121,18 +158,63 @@ export default function Book() {
         </div>
       </Section>
 
+      {/* coupon */}
+      <Section title="Apply coupon">
+        {applied ? (
+          <div className={s.couponApplied}>
+            <span className={s.couponTicket}><Ticket size={20} /></span>
+            <div className={s.couponInfo}>
+              <div className={s.couponCodeOn}>{applied.code} applied</div>
+              <div className={s.couponSaved}>You save {inr(applied.discount)} · {applied.message}</div>
+            </div>
+            <button className={s.couponRemove} onClick={removeCoupon} aria-label="Remove coupon"><X size={16} /></button>
+          </div>
+        ) : (
+          <>
+            <div className={s.couponField}>
+              <span className={s.couponTicket}><Ticket size={18} /></span>
+              <input
+                className={s.couponInput}
+                placeholder="Enter coupon code"
+                value={code}
+                onChange={(e) => { setCode(e.target.value.toUpperCase()); setCouponErr(''); }}
+                onKeyDown={(e) => { if (e.key === 'Enter') apply(code); }}
+              />
+              <button className={s.couponApply} onClick={() => apply(code)} disabled={!code.trim()}>Apply</button>
+            </div>
+            {couponErr && <div className={s.couponErr}>{couponErr}</div>}
+
+            {/* tappable available coupons */}
+            <div className={L.col} style={{ marginTop: 12, gap: 8 }}>
+              {COUPONS.map((c) => (
+                <button key={c.code} className={s.couponOffer} onClick={() => apply(c.code)}>
+                  <span className={s.couponOfferCode}>{c.code}</span>
+                  <span className={s.couponOfferLabel}>{c.label}</span>
+                  <ChevronRight size={16} color="#9DB4CE" />
+                </button>
+              ))}
+            </div>
+          </>
+        )}
+      </Section>
+
       {/* summary */}
       <Section title="Summary">
         <div className={s.summary}>
-          <div className={s.sumRow}>{svc?.name} <b>{inr(svc?.price || 0)}</b></div>
+          <div className={s.sumRow}>{svc?.name} <b>{inr(price)}</b></div>
+          {discount > 0 && (
+            <div className={s.sumRow} style={{ color: '#16B47B' }}>
+              Coupon ({applied.code}) <b style={{ color: '#16B47B' }}>−{inr(discount)}</b>
+            </div>
+          )}
           <div className={s.sumRow}>Convenience fee <b>{inr(0)}</b></div>
           <div className={s.sumDivide} />
-          <div className={`${s.sumRow} ${s.sumTotal}`}>Total <b>{inr(svc?.price || 0)}</b></div>
+          <div className={`${s.sumRow} ${s.sumTotal}`}>Total <b>{inr(total)}</b></div>
         </div>
       </Section>
 
       <Section>
-        <ClayButton full onClick={confirm}><CheckCircle2 size={19} /> Confirm booking · {inr(svc?.price || 0)}</ClayButton>
+        <ClayButton full onClick={confirm}><CheckCircle2 size={19} /> Confirm booking · {inr(total)}</ClayButton>
       </Section>
     </Page>
   );

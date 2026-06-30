@@ -6,7 +6,7 @@ const cx = (...a) => a.filter(Boolean).join(' ');
 
 const TABS = [
   { to: '/home', label: 'Home', Icon: Home },
-  { to: '/plans', label: 'Plans', Icon: LayoutGrid },
+  { to: '/plans', label: 'My Plan', Icon: LayoutGrid },
   { to: '/bookings', label: 'Activity', Icon: CalendarClock },
   { to: '/profile', label: 'Profile', Icon: User },
 ];

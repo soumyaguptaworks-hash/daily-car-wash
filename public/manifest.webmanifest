@@ -1,7 +1,7 @@
 {
-  "name": "Clay — Daily Planner",
-  "short_name": "Clay",
-  "description": "A soft, claymorphic daily planner. Plan and manage your day, beautifully.",
+  "name": "Daily Car Wash",
+  "short_name": "DCW",
+  "description": "Doorstep car care, made simple. Book washes, manage your plan, track live.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -10,10 +10,16 @@
   "theme_color": "#4DA3FF",
   "icons": [
     {
-      "src": "/icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "src": "/logo.png",
+      "sizes": "500x500",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "500x500",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }

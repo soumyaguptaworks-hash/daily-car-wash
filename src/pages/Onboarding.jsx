@@ -3,15 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { useStore } from '../store';
 import { ClayButton } from '../components/ui';
-import { WashSceneSVG, ScheduleSceneSVG, TrackingSceneSVG } from '../components/illustrations';
+import { SplashSceneSVG, ScheduleSceneSVG, TrackingSceneSVG } from '../components/illustrations';
 import a from './auth.module.css';
 
 const SLIDES = [
   {
-    Scene: WashSceneSVG,
+    Scene: SplashSceneSVG,
     bg: 'linear-gradient(150deg, #DCEEFF, #BFE0FF)',
     title: 'Professional care at your doorstep',
-    text: 'Expert partners wash and detail your car right where it's parked — home, office or apartment.',
+    text: 'Expert partners wash and detail your car right where it is parked — home, office or apartment.',
   },
   {
     Scene: ScheduleSceneSVG,

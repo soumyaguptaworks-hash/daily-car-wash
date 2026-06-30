@@ -25,7 +25,7 @@ export default function Wallet() {
       {/* balance card */}
       <div className={s.subCard} style={{ marginBottom: 6 }}>
         <div className={s.subTop}>
-          <span className={s.subPlanTag}><WalletIcon size={19} /> Clay Wallet</span>
+          <span className={s.subPlanTag}><WalletIcon size={19} /> DCW Wallet</span>
           <span className={s.subPill}>Active</span>
         </div>
         <div style={{ marginTop: 18 }}>

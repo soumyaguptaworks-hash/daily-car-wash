@@ -137,4 +137,29 @@ export const OFFERS = [
   { id: 'o3', title: 'Flat ₹150', sub: 'On first booking', code: 'FIRST150', color: '#FFC857' },
 ];
 
+/* ── applicable coupon codes ──
+   type 'pct'  → percent off (max caps the discount)
+   type 'flat' → fixed amount off (min = minimum order value) */
+export const COUPONS = [
+  { code: 'SHINE20',  type: 'pct',  value: 20, max: 200, min: 0,   label: '20% off · up to ₹200' },
+  { code: 'FIRST150', type: 'flat', value: 150,          min: 499, label: 'Flat ₹150 off · min ₹499' },
+  { code: 'CW-AA21',  type: 'flat', value: 100,          min: 0,   label: '₹100 referral credit' },
+  { code: 'CLEAN10',  type: 'pct',  value: 10, max: 100, min: 0,   label: '10% off your wash' },
+];
+
+/* returns { ok, discount, message } for a code against an order amount */
+export function applyCoupon(rawCode, amount) {
+  const code = (rawCode || '').trim().toUpperCase();
+  if (!code) return { ok: false, discount: 0, message: '' };
+  const c = COUPONS.find((x) => x.code === code);
+  if (!c) return { ok: false, discount: 0, message: 'Invalid coupon code' };
+  if (c.min && amount < c.min) {
+    return { ok: false, discount: 0, message: `Minimum order ₹${c.min} required` };
+  }
+  let discount = c.type === 'pct' ? Math.round((amount * c.value) / 100) : c.value;
+  if (c.max) discount = Math.min(discount, c.max);
+  discount = Math.min(discount, amount);
+  return { ok: true, discount, message: c.label };
+}
+
 export const inr = (n) => '₹' + n.toLocaleString('en-IN');
