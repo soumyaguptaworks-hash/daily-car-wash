@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { SEED_USER, SEED_VEHICLES, SEED_ADDRESSES, PLANS } from './data';
 
-const KEY = 'dcw-state-v1';
+const KEY = 'dcw-state-v2';
 
 const initial = {
   onboarded: false,
@@ -9,12 +9,12 @@ const initial = {
   user: SEED_USER,
   vehicles: SEED_VEHICLES,
   addresses: SEED_ADDRESSES,
-  // active subscription (null until a plan is chosen)
+  // active subscription (planId null = no plan yet → shows "buy monthly" upsell)
   subscription: {
-    planId: 'medium',
+    planId: null,
     startedDays: ['Mon', 'Wed', 'Fri', 'Sun'],
     slot: 'morning',
-    washesUsed: 8,
+    washesUsed: 0,
     paused: false,
   },
   wallet: 480,
