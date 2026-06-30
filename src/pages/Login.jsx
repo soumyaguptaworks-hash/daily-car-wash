@@ -60,10 +60,11 @@ const BENEFITS = [
 
 export default function Login() {
   const nav = useNavigate();
-  const { login } = useStore();
+  const { login, updateUser } = useStore();
   const [step, setStep] = useState('phone');
   const [phone, setPhone] = useState('');
   const [otp, setOtp] = useState(['', '', '', '']);
+  const [name, setName] = useState('');
   const boxes = useRef([]);
 
   const setDigit = (idx, val) => {
@@ -72,7 +73,11 @@ export default function Login() {
     if (d && idx < 3) boxes.current[idx + 1]?.focus();
   };
 
-  const finish = () => { login(); nav('/home', { replace: true }); };
+  const finish = () => {
+    updateUser({ name: name.trim() || 'there', phone: phone ? `+91 ${phone}` : '' });
+    login();
+    nav('/home', { replace: true });
+  };
 
   return (
     <div className={a.full}>
@@ -142,7 +147,7 @@ export default function Login() {
           </ClayButton>
           <p className={a.demoNote}>Demo build · no real OTP is sent</p>
         </>
-      ) : (
+      ) : step === 'otp' ? (
         <>
           <div className={a.authHead}>
             <h1 className={a.authTitle}>Verify number 🔐</h1>
@@ -185,10 +190,34 @@ export default function Login() {
           </div>
 
           <div style={{ flex: 1, minHeight: 28 }} />
-          <ClayButton full onClick={finish}>
+          <ClayButton full onClick={() => setStep('name')}>
             <ShieldCheck size={19} /> Verify &amp; continue
           </ClayButton>
           <p className={a.demoNote}>Tap verify to enter the app</p>
+        </>
+      ) : null}
+
+      {step === 'name' && (
+        <>
+          <div className={a.authHead}>
+            <h1 className={a.authTitle}>Almost there 🎉</h1>
+            <p className={a.authText}>What should we call you?</p>
+          </div>
+          <label className={a.phoneField}>
+            <input
+              className={a.phoneInput}
+              placeholder="Your name"
+              value={name}
+              autoFocus
+              onChange={(e) => setName(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter') finish(); }}
+            />
+          </label>
+          <div style={{ flex: 1, minHeight: 24 }} />
+          <ClayButton full onClick={finish}>
+            Enter app <ArrowRight size={18} />
+          </ClayButton>
+          <p className={a.demoNote}>You can change this later in Profile</p>
         </>
       )}
     </div>
