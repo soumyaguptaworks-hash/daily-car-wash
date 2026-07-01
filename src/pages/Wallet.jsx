@@ -1,22 +1,20 @@
 import { useNavigate } from 'react-router-dom';
-import { Wallet as WalletIcon, Gift, Users, Tag, ArrowDownLeft, ArrowUpRight } from 'lucide-react';
+import { Wallet as WalletIcon, Gift, Users, Tag, ArrowDownLeft, ArrowUpRight, Receipt } from 'lucide-react';
 import { useStore } from '../store';
 import { OFFERS, inr } from '../data';
 import { ClayButton } from '../components/ui';
+import { Empty } from '../components/bits';
 import { Page, TopBar, Section, L } from '../components/layout';
 import s from './app.module.css';
 
-const TXNS = [
-  { id: 't1', label: 'Cashback — Medium Plan',    amount: +80,  date: '14 Jun', type: 'credit' },
-  { id: 't2', label: 'Foam Wash payment',          amount: -349, date: '12 Jun', type: 'debit'  },
-  { id: 't3', label: 'Referral reward',            amount: +100, date: '10 Jun', type: 'credit' },
-  { id: 't4', label: 'Premium Detailing payment',  amount: -1499,date: '8 Jun',  type: 'debit'  },
-  { id: 't5', label: 'First-booking promo credit', amount: +150, date: '5 Jun',  type: 'credit' },
-];
-
 export default function Wallet() {
-  const { wallet } = useStore();
+  const { wallet, bookings } = useStore();
   const nav = useNavigate();
+
+  // real transactions derived from the user's own paid bookings
+  const txns = bookings
+    .filter((b) => b.price > 0)
+    .map((b) => ({ id: b.id, label: `${b.title} payment`, amount: -b.price, date: b.date, type: 'debit' }));
 
   return (
     <Page>
@@ -75,25 +73,31 @@ export default function Wallet() {
 
       {/* transactions */}
       <Section title="Transactions">
-        <div className={L.col}>
-          {TXNS.map((t) => (
-            <div key={t.id} className={s.tile}>
-              <span className={s.tileIcon} style={{
-                background: t.type === 'credit' ? '#E8F8F0' : '#FFF0F3',
-                color: t.type === 'credit' ? '#16B47B' : '#FF6B82',
-              }}>
-                {t.type === 'credit' ? <ArrowDownLeft size={22} /> : <ArrowUpRight size={22} />}
-              </span>
-              <div className={s.tileBody}>
-                <div className={s.tileTitle} style={{ fontSize: 14 }}>{t.label}</div>
-                <div className={s.tileSub}>{t.date}</div>
+        {txns.length === 0 ? (
+          <Empty icon={<Receipt size={32} />} title="No transactions yet">
+            Your wash payments and rewards will show up here.
+          </Empty>
+        ) : (
+          <div className={L.col}>
+            {txns.map((t) => (
+              <div key={t.id} className={s.tile}>
+                <span className={s.tileIcon} style={{
+                  background: t.type === 'credit' ? '#E8F8F0' : '#FFF0F3',
+                  color: t.type === 'credit' ? '#16B47B' : '#FF6B82',
+                }}>
+                  {t.type === 'credit' ? <ArrowDownLeft size={22} /> : <ArrowUpRight size={22} />}
+                </span>
+                <div className={s.tileBody}>
+                  <div className={s.tileTitle} style={{ fontSize: 14 }}>{t.label}</div>
+                  <div className={s.tileSub}>{t.date}</div>
+                </div>
+                <span className={s.tilePrice} style={{ color: t.type === 'credit' ? '#16B47B' : '#FF6B82' }}>
+                  {t.type === 'credit' ? '+' : ''}{inr(t.amount)}
+                </span>
               </div>
-              <span className={s.tilePrice} style={{ color: t.type === 'credit' ? '#16B47B' : '#FF6B82' }}>
-                {t.type === 'credit' ? '+' : ''}{inr(t.amount)}
-              </span>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </Section>
     </Page>
   );

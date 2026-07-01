@@ -236,7 +236,7 @@ export default function Book() {
       </Section>
 
       <Section>
-        <ClayButton full disabled={notReady} onClick={confirm}><CheckCircle2 size={19} /> {notReady ? 'Add car & address to book' : `Confirm booking · ${inr(total)}`}</ClayButton>
+        <ClayButton full disabled={notReady} onClick={confirm}><CheckCircle2 size={19} /> {notReady ? `Add ${needsVehicle && needsAddress ? 'car & address' : needsVehicle ? 'a car' : 'an address'} to book` : `Confirm booking · ${inr(total)}`}</ClayButton>
       </Section>
     </Page>
   );
