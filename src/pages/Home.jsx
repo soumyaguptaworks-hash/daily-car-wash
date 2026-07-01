@@ -196,11 +196,11 @@ export default function Home() {
           style={{ background: 'linear-gradient(150deg,#66B2FF,#2E7DE0)', color: '#fff' }}
           onClick={() => nav('/profile')}
         >
-          {user.initials}
+          {user.initials || '🙂'}
         </button>
         <div style={{ flex: 1 }}>
           <div className={s.hi}>Good morning,</div>
-          <div className={s.name}>{user.name.split(' ')[0]} 👋</div>
+          <div className={s.name}>{(user.name && user.name.split(' ')[0]) || 'there'} 👋</div>
           <span className={s.locChip}><MapPin size={13} strokeWidth={2.6} /> Home · Prestige Lakeside</span>
         </div>
         <button className={s.headBtn} onClick={() => nav('/notifications')}>

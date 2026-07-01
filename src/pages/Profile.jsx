@@ -50,7 +50,7 @@ export default function Profile() {
           background: 'linear-gradient(150deg,#66B2FF,#2E7DE0)',
           boxShadow: '0 14px 28px rgba(46,125,224,.4), inset 3px 3px 7px rgba(255,255,255,.4)',
         }}>
-          {user.initials}
+          {user.initials || '🙂'}
         </div>
         <div style={{ fontFamily: 'Fredoka, sans-serif', fontWeight: 600, fontSize: 22, color: '#233A56' }}>{user.name}</div>
         <div style={{ fontSize: 13, fontWeight: 600, color: '#6E89A8', marginTop: 4 }}>{user.phone}</div>
