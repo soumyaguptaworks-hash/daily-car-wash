@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Bell, MapPin, Search, Sparkles, CalendarClock, Car, Wallet,
-  ChevronRight, Navigation, ArrowRight,
+  ChevronRight, Navigation, ArrowRight, BadgePercent,
 } from 'lucide-react';
 import { useStore } from '../store';
 import { ALL_SERVICES, OFFERS, inr } from '../data';
@@ -292,6 +292,20 @@ export default function Home() {
             </div>
             <div className={s.subBar}><div className={s.subBarFill} style={{ width: `${100 - pct}%` }} /></div>
           </div>
+        </Section>
+      )}
+
+      {/* get started CTA for non-subscribers */}
+      {!activePlan && (
+        <Section title="Get started">
+          <button className={s.planPromo} onClick={() => nav('/plans')}>
+            <span className={s.planPromoIcon}><BadgePercent size={22} /></span>
+            <span style={{ flex: 1, textAlign: 'left' }}>
+              <span className={s.planPromoTitle}>Pick a monthly plan</span>
+              <span className={s.planPromoSub}>Save up to 40% vs one-time washes — choose yours</span>
+            </span>
+            <span className={s.planPromoCta}>View plans <ChevronRight size={15} /></span>
+          </button>
         </Section>
       )}
 
