@@ -1,7 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useStore } from '../store';
 import a from './auth.module.css';
+
+const SEEN_KEY = 'dcw-splash-seen';
 
 export default function Splash() {
   const nav = useNavigate();
@@ -9,23 +11,34 @@ export default function Splash() {
   const done = useRef(false);
   const timer = useRef(null);
 
+  // has the intro video already been shown once (on any prior open)?
+  const [seen] = useState(() => {
+    try { return localStorage.getItem(SEEN_KEY) === '1'; } catch { return false; }
+  });
+
   const goNext = () => {
     if (done.current) return;
     done.current = true;
     clearTimeout(timer.current);
+    try { localStorage.setItem(SEEN_KEY, '1'); } catch { /* ignore */ }
     if (!onboarded) nav('/onboarding', { replace: true });
     else if (!loggedIn) nav('/login', { replace: true });
     else nav('/home', { replace: true });
   };
 
-  // backstop only until we know the real duration (covers blocked autoplay)
   useEffect(() => {
-    timer.current = setTimeout(goNext, 12000);
+    // already seen once → skip the video entirely, go straight through
+    if (seen) { goNext(); return; }
+    // first open → safety net in case autoplay is blocked or onEnded never fires
+    timer.current = setTimeout(goNext, 8000);
     return () => clearTimeout(timer.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // once metadata loads, set the backstop just past the full clip length
+  // once seen, render nothing — the effect redirects instantly
+  if (seen) return null;
+
+  // once metadata loads, cap the safety net just past the real clip length
   const onMeta = (e) => {
     const d = e.currentTarget.duration;
     if (d && isFinite(d)) {
@@ -35,7 +48,7 @@ export default function Splash() {
   };
 
   return (
-    <div className={a.videoSplash}>
+    <div className={a.videoSplash} onClick={goNext} role="button" title="Tap to skip">
       <video
         className={a.splashVideo}
         src="/splash-video.mp4"
@@ -47,6 +60,7 @@ export default function Splash() {
         onEnded={goNext}
         onError={goNext}
       />
+      <span className={a.splashSkip}>Tap to skip</span>
     </div>
   );
 }
