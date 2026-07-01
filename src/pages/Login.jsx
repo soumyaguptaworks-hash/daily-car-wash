@@ -193,7 +193,7 @@ export default function Login() {
           <ClayButton full onClick={() => setStep('name')}>
             <ShieldCheck size={19} /> Verify &amp; continue
           </ClayButton>
-          <p className={a.demoNote}>Tap verify to enter the app</p>
+          <p className={a.demoNote}>Tap verify to continue</p>
         </>
       ) : null}
 
