@@ -7,7 +7,7 @@ import {
 import { useStore } from '../store';
 import { PLANS, inr } from '../data';
 import { ClayButton, ClayToggle } from '../components/ui';
-import { Page, TopBar, Section, L } from '../components/layout';
+import { Page, TopBar, Section } from '../components/layout';
 import s from './app.module.css';
 
 /* ─── helpers ─── */
@@ -66,8 +66,9 @@ export default function Plans() {
   const washProgress  = activePlan ? ((subscription.washesUsed || 0) / activePlan.washes) : 0;
   const slotLabel     = subscription.slot === 'morning' ? '7–10 AM' : '4–7 PM';
 
+  const todayMid = new Date(nowYear, nowMonth, nowDate);
   const isWash  = d => d && selDOW.includes(new Date(calYear, calMonth, d).getDay());
-  const isPast  = d => isCurrent ? d < nowDate : (calYear < nowYear || calMonth < nowMonth);
+  const isPast  = d => new Date(calYear, calMonth, d) < todayMid;
   const isToday = d => isCurrent && d === nowDate;
 
   const fmtDate  = d => `${DAY_SHORT[d.getDay()]}, ${d.getDate()} ${MON_SHORT[d.getMonth()]}`;
@@ -166,18 +167,18 @@ export default function Plans() {
                     alignItems: 'center', justifyContent: 'center', gap: 2, position: 'relative',
                     background: today
                       ? 'linear-gradient(150deg,#66B2FF,#2E7DE0)'
-                      : wash ? (past ? '#F4F8FF' : '#EBF5FF') : 'transparent',
-                    border: wash && !today ? `1.5px solid ${past ? '#D4E8FF' : '#B8D8FF'}` : 'none',
+                      : wash ? (past ? '#F4F8FF' : '#E6FBF1') : 'transparent',
+                    border: wash && !today ? `1.5px solid ${past ? '#E2ECF7' : '#A9EDCB'}` : 'none',
                   }}
                 >
                   <span style={{
                     fontSize: 12.5, fontWeight: today ? 700 : 600,
-                    color: today ? '#fff' : wash ? (past ? '#9DB4CE' : '#2E7DE0') : '#BDD0E5',
+                    color: today ? '#fff' : wash ? (past ? '#9DB4CE' : '#0E9E63') : '#BDD0E5',
                   }}>
                     {d}
                   </span>
                   {wash && !today && (
-                    <div style={{ width: 4, height: 4, borderRadius: '50%', background: past ? '#9DB4CE' : '#4DA3FF' }} />
+                    <div style={{ width: 4, height: 4, borderRadius: '50%', background: past ? '#9DB4CE' : '#16B47B' }} />
                   )}
                 </div>
               );
@@ -188,8 +189,8 @@ export default function Plans() {
           <div style={{ display: 'flex', gap: 16, marginTop: 14, flexWrap: 'wrap' }}>
             {[
               { bg: 'linear-gradient(150deg,#66B2FF,#2E7DE0)', label: 'Today' },
-              { bg: '#EBF5FF', border: '#B8D8FF',              label: 'Upcoming wash' },
-              { bg: '#F4F8FF', border: '#D4E8FF',              label: 'Past wash' },
+              { bg: '#E6FBF1', border: '#A9EDCB',              label: 'Upcoming wash' },
+              { bg: '#F4F8FF', border: '#E2ECF7',              label: 'Past wash' },
             ].map(({ bg, border, label }) => (
               <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                 <div style={{ width: 12, height: 12, borderRadius: 4, background: bg, border: border ? `1.5px solid ${border}` : 'none', flexShrink: 0 }} />
@@ -208,7 +209,7 @@ export default function Plans() {
             const isSkipped = skipped.includes(iso);
             return (
               <div key={iso} className={s.tile} style={{ opacity: isSkipped ? .5 : 1, transition: 'opacity .2s' }}>
-                <span className={s.tileIcon} style={{ background: isSkipped ? '#F5F5F5' : '#EBF5FF', color: isSkipped ? '#9DB4CE' : '#4DA3FF' }}>
+                <span className={s.tileIcon} style={{ background: isSkipped ? '#F5F5F5' : '#E6FBF1', color: isSkipped ? '#9DB4CE' : '#16B47B' }}>
                   <CalendarClock size={22} />
                 </span>
                 <div className={s.tileBody}>
@@ -359,12 +360,66 @@ export default function Plans() {
   );
 }
 
-/* ─── fallback when no plan chosen ─── */
+/* ─── fallback when no plan chosen — 2-step flow ─── */
 function PlanSelection({ onChoose }) {
-  const [pending, setPending] = useState(null); // the plan object awaiting payment
+  const [selected, setSelected] = useState(null); // when set → step 2 (review & pay)
+
+  /* ── Step 2: review & pay ── */
+  if (selected) {
+    const p = selected;
+    return (
+      <Page>
+        <TopBar title="Confirm plan" subtitle="Step 2 of 2 · Review &amp; pay" onBack={() => setSelected(null)} />
+
+        <div className={s.planCard} style={{ marginBottom: 18 }}>
+          {p.popular && <span className={s.planTopRibbon}>★ POPULAR</span>}
+          <div className={s.planHead}>
+            <span className={s.planIcon} style={{ background: `${p.color}1F`, color: p.color }}><p.Icon size={26} /></span>
+            <div>
+              <div className={s.planName}>{p.name} Plan</div>
+              <div className={s.planTag}>{p.tagline}</div>
+            </div>
+          </div>
+          <div className={s.planTag} style={{ marginBottom: 12 }}>{p.washes} washes · {p.perWeek} days a week</div>
+          <div>
+            {p.features.map(f => (
+              <div key={f} className={s.feat}>
+                <span className={s.featCheck} style={{ background: p.color }}><Check size={14} strokeWidth={3.5} /></span>
+                {f}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className={s.summary}>
+          <div className={s.sumRow}>{p.name} Plan · {p.washes} washes <b>{inr(p.price)}/mo</b></div>
+          <div className={s.sumRow}>Convenience fee <b>{inr(0)}</b></div>
+          <div className={s.sumDivide} />
+          <div className={`${s.sumRow} ${s.sumTotal}`}>Pay today <b>{inr(p.price)}</b></div>
+        </div>
+
+        <Section>
+          <ClayButton full onClick={() => onChoose(p.id)}>
+            <CheckCircle2 size={19} /> Pay {inr(p.price)} &amp; activate
+          </ClayButton>
+          <button
+            onClick={() => setSelected(null)}
+            style={{ display: 'block', margin: '14px auto 0', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'Quicksand,sans-serif', fontWeight: 700, fontSize: 13, color: '#6E89A8' }}
+          >
+            ← Choose a different plan
+          </button>
+          <p className={s.subMetaLabel} style={{ textAlign: 'center', marginTop: 10, color: '#9DB4CE' }}>
+            Demo · no real payment is charged
+          </p>
+        </Section>
+      </Page>
+    );
+  }
+
+  /* ── Step 1: choose a plan ── */
   return (
     <Page>
-      <TopBar back={false} title="My Plan" subtitle="Choose a plan to get started" />
+      <TopBar back={false} title="Choose a plan" subtitle="Step 1 of 2 · Pick what suits you" />
       <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
         {PLANS.map(p => (
           <div key={p.id} className={s.planCard}>
@@ -389,22 +444,10 @@ function PlanSelection({ onChoose }) {
                 </div>
               ))}
             </div>
-            <ClayButton full onClick={() => setPending(p)}>Choose {p.name}</ClayButton>
+            <ClayButton full onClick={() => setSelected(p)}>Choose {p.name} <ChevronRight size={16} /></ClayButton>
           </div>
         ))}
       </div>
-      {pending && (
-        <div className={s.summary} style={{ marginTop: 16 }}>
-          <div className={s.sumRow}>{pending.name} Plan <b>{inr(pending.price)}/mo</b></div>
-          <div className={s.sumRow}>{pending.washes} washes · {pending.perWeek}/week <b></b></div>
-          <div className={s.sumDivide} />
-          <div className={`${s.sumRow} ${s.sumTotal}`}>Pay today <b>{inr(pending.price)}</b></div>
-          <div className={L.row} style={{ marginTop: 14 }}>
-            <ClayButton full onClick={() => { onChoose(pending.id); }}>Pay &amp; activate</ClayButton>
-            <ClayButton full variant="soft" onClick={() => setPending(null)}>Cancel</ClayButton>
-          </div>
-        </div>
-      )}
       <Section>
         <div className={s.tile} style={{ background: '#EAF4FF', boxShadow: 'none' }}>
           <span className={s.tileIcon} style={{ background: '#fff', color: '#4DA3FF' }}><Info size={22} /></span>
