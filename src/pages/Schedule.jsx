@@ -9,15 +9,17 @@ import s from './app.module.css';
 
 export default function Schedule() {
   const nav = useNavigate();
-  const { activePlan, subscription, setSubscription, togglePause } = useStore();
+  const { activePlan, subscription, setSubscription, togglePause, vehicles, addresses } = useStore();
   const [days, setDays] = useState(subscription.startedDays || []);
   const [slot, setSlot] = useState(subscription.slot || 'morning');
+
+  const notReady = vehicles.length === 0 || addresses.length === 0;
 
   const max = activePlan?.perWeek || 4;
   const toggleDay = (d) =>
     setDays((cur) => (cur.includes(d) ? cur.filter((x) => x !== d) : cur.length < max ? [...cur, d] : cur));
 
-  const save = () => { setSubscription({ startedDays: days, slot }); nav('/home'); };
+  const save = () => { if (notReady || days.length === 0) return; setSubscription({ startedDays: days, slot }); nav('/home'); };
 
   return (
     <Page>
@@ -64,6 +66,19 @@ export default function Schedule() {
         </div>
       </Section>
 
+      {notReady && (
+        <Section title="Before you start">
+          <div className={L.col}>
+            {vehicles.length === 0 && (
+              <ClayButton full variant="soft" onClick={() => nav('/vehicles')}>Add your car</ClayButton>
+            )}
+            {addresses.length === 0 && (
+              <ClayButton full variant="soft" onClick={() => nav('/addresses')}>Add an address</ClayButton>
+            )}
+          </div>
+        </Section>
+      )}
+
       <Section title="Summary">
         <div className={s.summary}>
           <div className={s.sumRow}>Plan <b>{activePlan?.name}</b></div>
@@ -75,7 +90,7 @@ export default function Schedule() {
       </Section>
 
       <Section>
-        <ClayButton full onClick={save}><CalendarCheck size={19} /> Confirm subscription</ClayButton>
+        <ClayButton full disabled={notReady || days.length === 0} onClick={save}><CalendarCheck size={19} /> Confirm subscription</ClayButton>
       </Section>
     </Page>
   );
