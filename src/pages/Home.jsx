@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Bell, MapPin, Search, Sparkles, CalendarClock, Car, Wallet,
+  Bell, MapPin, Sparkles, CalendarClock, Car, Wallet,
   ChevronRight, Navigation, ArrowRight, BadgePercent,
 } from 'lucide-react';
 import { useStore } from '../store';
 import { ALL_SERVICES, OFFERS, inr } from '../data';
-import { ClayInput, ClayButton } from '../components/ui';
+import { ClayButton } from '../components/ui';
 import { StatusBadge, ClayCarSVG } from '../components/bits';
 import { Page, Section, L } from '../components/layout';
 import s from './app.module.css';
@@ -208,12 +208,23 @@ export default function Home() {
         </button>
       </div>
 
-      <ClayInput
-        icon={<Search size={18} color="#9DB4CE" />}
-        placeholder="Search services…"
-        onFocus={() => nav('/book')}
-        readOnly
-      />
+      {/* primary actions */}
+      <div className={s.ctaRow}>
+        <button className={s.ctaCard} onClick={() => nav('/book')} style={{ background: 'linear-gradient(150deg,#66B2FF,#2E7DE0)' }}>
+          <span className={s.ctaIcon}><Sparkles size={20} /></span>
+          <span className={s.ctaLabel}>Book a wash</span>
+          <span className={s.ctaSub}>One-time service</span>
+        </button>
+        <button
+          className={s.ctaCard}
+          onClick={() => nav('/plans')}
+          style={{ background: activePlan ? 'linear-gradient(150deg,#3ECFAC,#10A478)' : 'linear-gradient(150deg,#B39DFB,#7C5CE0)' }}
+        >
+          <span className={s.ctaIcon}>{activePlan ? <CalendarClock size={20} /> : <BadgePercent size={20} />}</span>
+          <span className={s.ctaLabel}>{activePlan ? 'My Plan' : 'Buy a plan'}</span>
+          <span className={s.ctaSub}>{activePlan ? `${remaining} washes left` : 'Save up to 40%'}</span>
+        </button>
+      </div>
 
       {/* ── hero slideshow ── */}
       <Section>
@@ -292,20 +303,6 @@ export default function Home() {
             </div>
             <div className={s.subBar}><div className={s.subBarFill} style={{ width: `${100 - pct}%` }} /></div>
           </div>
-        </Section>
-      )}
-
-      {/* get started CTA for non-subscribers */}
-      {!activePlan && (
-        <Section title="Get started">
-          <button className={s.planPromo} onClick={() => nav('/plans')}>
-            <span className={s.planPromoIcon}><BadgePercent size={22} /></span>
-            <span style={{ flex: 1, textAlign: 'left' }}>
-              <span className={s.planPromoTitle}>Pick a monthly plan</span>
-              <span className={s.planPromoSub}>Save up to 40% vs one-time washes — choose yours</span>
-            </span>
-            <span className={s.planPromoCta}>View plans <ChevronRight size={15} /></span>
-          </button>
         </Section>
       )}
 
