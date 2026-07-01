@@ -7,7 +7,7 @@ import {
 import { useStore } from '../store';
 import { PLANS, inr } from '../data';
 import { ClayButton, ClayToggle } from '../components/ui';
-import { Page, TopBar, Section } from '../components/layout';
+import { Page, TopBar, Section, L } from '../components/layout';
 import s from './app.module.css';
 
 /* ─── helpers ─── */
@@ -361,6 +361,7 @@ export default function Plans() {
 
 /* ─── fallback when no plan chosen ─── */
 function PlanSelection({ onChoose }) {
+  const [pending, setPending] = useState(null); // the plan object awaiting payment
   return (
     <Page>
       <TopBar back={false} title="My Plan" subtitle="Choose a plan to get started" />
@@ -388,10 +389,22 @@ function PlanSelection({ onChoose }) {
                 </div>
               ))}
             </div>
-            <ClayButton full onClick={() => onChoose(p.id)}>Choose {p.name}</ClayButton>
+            <ClayButton full onClick={() => setPending(p)}>Choose {p.name}</ClayButton>
           </div>
         ))}
       </div>
+      {pending && (
+        <div className={s.summary} style={{ marginTop: 16 }}>
+          <div className={s.sumRow}>{pending.name} Plan <b>{inr(pending.price)}/mo</b></div>
+          <div className={s.sumRow}>{pending.washes} washes · {pending.perWeek}/week <b></b></div>
+          <div className={s.sumDivide} />
+          <div className={`${s.sumRow} ${s.sumTotal}`}>Pay today <b>{inr(pending.price)}</b></div>
+          <div className={L.row} style={{ marginTop: 14 }}>
+            <ClayButton full onClick={() => { onChoose(pending.id); }}>Pay &amp; activate</ClayButton>
+            <ClayButton full variant="soft" onClick={() => setPending(null)}>Cancel</ClayButton>
+          </div>
+        </div>
+      )}
       <Section>
         <div className={s.tile} style={{ background: '#EAF4FF', boxShadow: 'none' }}>
           <span className={s.tileIcon} style={{ background: '#fff', color: '#4DA3FF' }}><Info size={22} /></span>
