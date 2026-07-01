@@ -47,7 +47,12 @@ export default function Book() {
   const discount = applied?.discount || 0;
   const total = Math.max(0, price - discount);
 
+  const needsVehicle = vehicles.length === 0;
+  const needsAddress = addresses.length === 0;
+  const notReady = needsVehicle || needsAddress;
+
   const confirm = () => {
+    if (notReady) return;
     const addr = addresses.find((a) => a.id === addrId);
     addBooking({
       kind: 'onetime', title: svc.name, vehicleId: vehId,
@@ -71,6 +76,23 @@ export default function Book() {
           </span>
           <span className={s.planPromoCta}>View plans <ChevronRight size={15} /></span>
         </button>
+      )}
+
+      {/* before-you-book gate */}
+      {notReady && (
+        <div className={s.tile} style={{ marginBottom: 18, flexDirection: 'column', alignItems: 'stretch', gap: 12 }}>
+          <div className={s.tileTitle}>Before you book</div>
+          {needsVehicle && (
+            <ClayButton full variant="soft" onClick={() => nav('/vehicles')}>
+              <Car size={18} /> Add your car
+            </ClayButton>
+          )}
+          {needsAddress && (
+            <ClayButton full variant="soft" onClick={() => nav('/addresses')}>
+              <MapPin size={18} /> Add an address
+            </ClayButton>
+          )}
+        </div>
       )}
 
       {/* category + service */}
@@ -214,7 +236,7 @@ export default function Book() {
       </Section>
 
       <Section>
-        <ClayButton full onClick={confirm}><CheckCircle2 size={19} /> Confirm booking · {inr(total)}</ClayButton>
+        <ClayButton full disabled={notReady} onClick={confirm}><CheckCircle2 size={19} /> {notReady ? 'Add car & address to book' : `Confirm booking · ${inr(total)}`}</ClayButton>
       </Section>
     </Page>
   );
